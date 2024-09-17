@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MangaScans.Application\MangaScans.Application.csproj" />
     <ProjectReference Include="..\MangaScans.Domain\MangaScans.Domain.csproj" />
   </ItemGroup>
 

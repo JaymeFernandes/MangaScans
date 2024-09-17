@@ -1,4 +1,6 @@
 using MangaScans.Data.Context;
+using MangaScans.Data.Repositories;
+using MangaScans.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace MangaScans.Api.IoC;
@@ -13,5 +15,7 @@ public static class DependencyInjection
             
             x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), b => b.MigrationsAssembly("MangaScans.Api"));
         });
+
+        services.AddScoped<IRepositoryManga, RepositoryManga>();
     }
 }

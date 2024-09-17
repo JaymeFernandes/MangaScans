@@ -16,6 +16,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MangaScans.Application\MangaScans.Application.csproj" />
     <ProjectReference Include="..\MangaScans.Data\MangaScans.Data.csproj" />
     <ProjectReference Include="..\MangaScans.Domain\MangaScans.Domain.csproj" />
   </ItemGroup>

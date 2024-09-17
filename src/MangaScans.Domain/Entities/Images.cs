@@ -8,6 +8,7 @@ public class Images
     public int Id { get; set; }
     public int IdChapter { get; set; }
     public string Url { get; set; }
+    
     public string ImagePath { get; set; }
     
     [JsonIgnore]

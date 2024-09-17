@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaScans.Domain", "src\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaScans.Data", "src\MangaScans.Data\MangaScans.Data.csproj", "{9EF17FC2-ABC8-42B2-8EE5-86148499BAB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaScans.Application", "src\MangaScans.Application\MangaScans.Application.csproj", "{924B9436-C2EC-405A-ADF1-C16685BE4336}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +34,15 @@ Global
 		{9EF17FC2-ABC8-42B2-8EE5-86148499BAB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EF17FC2-ABC8-42B2-8EE5-86148499BAB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EF17FC2-ABC8-42B2-8EE5-86148499BAB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{924B9436-C2EC-405A-ADF1-C16685BE4336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{924B9436-C2EC-405A-ADF1-C16685BE4336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{924B9436-C2EC-405A-ADF1-C16685BE4336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{924B9436-C2EC-405A-ADF1-C16685BE4336}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D716636F-FB8E-407C-B7A0-E7926E7F9684} = {D60BC4EA-E5D9-4967-8176-07B6A8ED0985}
 		{112A344D-8386-49B0-9D31-0D134961A9C5} = {D60BC4EA-E5D9-4967-8176-07B6A8ED0985}
 		{9EF17FC2-ABC8-42B2-8EE5-86148499BAB5} = {D60BC4EA-E5D9-4967-8176-07B6A8ED0985}
+		{924B9436-C2EC-405A-ADF1-C16685BE4336} = {D60BC4EA-E5D9-4967-8176-07B6A8ED0985}
 	EndGlobalSection
 EndGlobal

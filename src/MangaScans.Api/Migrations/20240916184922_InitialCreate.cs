@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MangaScans.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,6 +39,9 @@ namespace MangaScans.Api.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Views = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Likes = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Dislikes = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Name = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", unicode: false, nullable: false)
@@ -90,6 +93,8 @@ namespace MangaScans.Api.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IdChapter = table.Column<int>(type: "int", nullable: false),
                     Url = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ImagePath = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -109,24 +114,24 @@ namespace MangaScans.Api.Migrations
                 columns: new[] { "Id", "CreatedAt", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1747), "Action" },
-                    { 2, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1749), "Adventure" },
-                    { 3, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1749), "Comedy" },
-                    { 4, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1750), "Drama" },
-                    { 5, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1750), "Romance" },
-                    { 6, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1751), "Mystery" },
-                    { 7, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1752), "Suspense" },
-                    { 8, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1752), "Fantasy" },
-                    { 9, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1753), "Sci-Fi" },
-                    { 10, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1754), "Horror" },
-                    { 11, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1755), "Slice of Life" },
-                    { 12, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1755), "Supernatural" },
-                    { 13, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1756), "Historical" },
-                    { 14, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1757), "Sports" },
-                    { 15, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1757), "Harem" },
-                    { 16, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1758), "Yaoi" },
-                    { 17, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1758), "Yuri" },
-                    { 18, new DateTime(2024, 9, 15, 1, 26, 56, 521, DateTimeKind.Utc).AddTicks(1759), "Isekai" }
+                    { 1, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6657), "Action" },
+                    { 2, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6658), "Adventure" },
+                    { 3, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6658), "Comedy" },
+                    { 4, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6659), "Drama" },
+                    { 5, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6660), "Romance" },
+                    { 6, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6660), "Mystery" },
+                    { 7, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6661), "Suspense" },
+                    { 8, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6661), "Fantasy" },
+                    { 9, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6662), "Sci-Fi" },
+                    { 10, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6663), "Horror" },
+                    { 11, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6663), "Slice of Life" },
+                    { 12, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6664), "Supernatural" },
+                    { 13, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6665), "Historical" },
+                    { 14, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6665), "Sports" },
+                    { 15, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6666), "Harem" },
+                    { 16, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6667), "Yaoi" },
+                    { 17, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6667), "Yuri" },
+                    { 18, new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6668), "Isekai" }
                 });
 
             migrationBuilder.CreateIndex(
