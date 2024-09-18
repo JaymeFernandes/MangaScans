@@ -19,7 +19,4 @@ app.MapControllers();
 app.UseSwaggerSetup();
 app.UseProblemDetails();
 
-
-
-
 app.Run();

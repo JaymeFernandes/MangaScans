@@ -35,4 +35,7 @@ public static class ChapterExtensions
 
         return dto;
     }
+
+    public static List<ChapterDtoResponse> ToLibraryResponse(this IEnumerable<Chapter> chapters)
+        => chapters.Select(c => c.ToLibraryResponse()).ToList();
 }

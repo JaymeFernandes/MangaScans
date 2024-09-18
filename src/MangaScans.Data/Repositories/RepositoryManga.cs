@@ -1,3 +1,4 @@
+using MangaScans.Application.DTOs.Request;
 using MangaScans.Application.DTOs.Response;
 using MangaScans.Data.Context;
 using MangaScans.Data.Repositories.Shared;
@@ -54,4 +55,15 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
             .Skip((page - 1) * 10)
             .Take(10)
             .ToListAsync();
+
+    public async Task<bool> UpdateAsync(Manga mangaDto, string Id)
+    {
+        var manga = await GetById(Id);
+        
+        manga.Name = mangaDto.Name;
+        manga.Description = mangaDto.Description;
+        manga.IdCategory = mangaDto.IdCategory;
+
+        return await UpdateAsync(manga);
+    }
 }
