@@ -11,7 +11,7 @@ namespace MangaScans.Api.Controllers;
 /// AdminMangaController provides endpoints for managing mangas, including CRUD operations and category management.
 /// </summary>
 [Tags("Mangas")]
-[Route("api/manga")]
+[Route("api/admin/manga")]
 public class AdminMangaController : CustomControllerBase
 {
     private readonly IRepositoryManga _mangaRepository;

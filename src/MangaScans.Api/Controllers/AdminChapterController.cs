@@ -11,7 +11,7 @@ namespace MangaScans.Api.Controllers.Shared;
 /// AdminChapterController provides endpoints for managing chapters, including CRUD operations.
 /// </summary>
 [Tags("Chapters")]
-[Route("api/chapter")]
+[Route("api/admin/chapter")]
 public class AdminChapterController : CustomControllerBase
 {
     protected readonly IRepositoryChapter _chapterRepository;
@@ -62,7 +62,7 @@ public class AdminChapterController : CustomControllerBase
     /// <returns>The created chapter, or an error if creation fails.</returns>
     /// <response code="400">Invalid chapter data or failed to add chapter.</response>
     [HttpPost]
-    public async Task<IActionResult> AddAsync([FromBody] ChapterDtoRequest chapter)
+    public async Task<IActionResult> CreateChapter([FromBody] ChapterDtoRequest chapter)
     {
         if (chapter == null || string.IsNullOrEmpty(chapter.MangaId) || string.IsNullOrEmpty(chapter.Name))
             return BadRequest("Invalid chapter data. Please provide valid MangaId and Name.");
@@ -74,7 +74,7 @@ public class AdminChapterController : CustomControllerBase
         if (!result)
             return BadRequest("Failed to add chapter. Please try again later.");
 
-        return CreatedAtAction(nameof(GetByIdAsync), new { id = entity.Id }, entity);
+        return Ok();
     }
 
     /// <summary>

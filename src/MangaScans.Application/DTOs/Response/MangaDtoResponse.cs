@@ -42,8 +42,8 @@ public static class MangaExtension
             Created = manga.CreatedAt,
         };
         
-        if (manga._Chapters != null)
-            Dto.Chapters = manga._Chapters.ToLibraryResponse();
+        if (manga.Chapters != null)
+            Dto.Chapters = manga.Chapters.ToLibraryResponse();
         
 
         if (manga.Categories != null) 

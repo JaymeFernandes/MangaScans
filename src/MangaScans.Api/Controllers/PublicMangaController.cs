@@ -12,7 +12,7 @@ namespace MangaScans.Api.Controllers;
 /// searching by title, and getting specific manga details.
 /// </summary>
 [Tags("Public Routes")]
-public class PublicController : CustomControllerBase
+public class PublicMangaController : CustomControllerBase
 {
     protected readonly IRepositoryManga _repositoryManga;
 
@@ -20,7 +20,7 @@ public class PublicController : CustomControllerBase
     /// Initializes a new instance of the PublicController class.
     /// </summary>
     /// <param name="manga">The manga repository service injected via dependency injection.</param>
-    public PublicController([FromServices] IRepositoryManga manga) => _repositoryManga = manga;
+    public PublicMangaController([FromServices] IRepositoryManga manga) => _repositoryManga = manga;
 
     /// <summary>
     /// Redirects to the first page of top manga recommendations.
@@ -86,8 +86,8 @@ public class PublicController : CustomControllerBase
     /// <param name="title">The title or part of the title to search for.</param>
     /// <param name="page">The page number of search results to retrieve.</param>
     /// <returns>A list of mangas that match the search criteria on the specified page.</returns>
-    [HttpGet("search/{title}/{page}")]
-    public async Task<IActionResult> Search([FromRoute] string title, int page)
+    [HttpGet("search/{page}/{title}")]
+    public async Task<IActionResult> Search([FromRoute] string title, [FromRoute] int page)
     {
         var mangas = await _repositoryManga.SearchByName(title, page);
 

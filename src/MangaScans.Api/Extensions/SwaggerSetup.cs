@@ -9,6 +9,7 @@ public static class SwaggerSetup
         services.AddSwaggerGen(x =>
         {
             x.SwaggerDoc("v1", new() { Title = "Manga Scans API", Version = "v1" });
+            
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 

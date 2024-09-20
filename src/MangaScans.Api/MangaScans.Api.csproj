@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8" />
@@ -19,6 +20,10 @@
     <ProjectReference Include="..\MangaScans.Application\MangaScans.Application.csproj" />
     <ProjectReference Include="..\MangaScans.Data\MangaScans.Data.csproj" />
     <ProjectReference Include="..\MangaScans.Domain\MangaScans.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="StaticFiles\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

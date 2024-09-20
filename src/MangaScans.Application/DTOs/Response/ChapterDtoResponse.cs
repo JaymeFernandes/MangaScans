@@ -7,7 +7,9 @@ public class ChapterDtoResponse
 {
     public int Id { get; set; }
     
-    public int Num { get; set; } 
+    public string Title { get; set; }
+    
+    public int Num_do_Capitulo { get; set; } 
     
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ICollection<ImageDtoResponse> Images { get; set; }
@@ -17,10 +19,12 @@ public static class ChapterExtensions
 {
     public static ChapterDtoResponse ToLibraryResponse(this Chapter chapter)
     {
+        
         var dto = new ChapterDtoResponse()
         {
             Id = chapter.Id,
-            Num = chapter.Num,
+            Title = chapter.Name,
+            Num_do_Capitulo = chapter.Num,
         };
 
         if (chapter._Images  != null)
@@ -30,5 +34,5 @@ public static class ChapterExtensions
     }
 
     public static List<ChapterDtoResponse> ToLibraryResponse(this IEnumerable<Chapter> chapters)
-        => chapters.Select(c => c.ToLibraryResponse()).ToList();
+        => chapters.Select(c => c.ToLibraryResponse()).OrderByDescending(x => x.Num_do_Capitulo).Reverse().ToList();
 }

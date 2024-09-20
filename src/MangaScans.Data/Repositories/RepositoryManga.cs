@@ -16,6 +16,7 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
     {
         var manga = await _dbContext.Mangas
             .Include(x => x.Categories)
+            .Include(x => x.Chapters)
             .FirstAsync(x => x.Id == id);
         
         if (manga != null)

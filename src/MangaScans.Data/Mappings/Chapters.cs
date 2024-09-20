@@ -17,7 +17,7 @@ public static class Chapters
                 .IsUnicode(false);
 
             x.HasOne(c => c._Manga)
-                .WithMany(c => c._Chapters)
+                .WithMany(c => c.Chapters)
                 .HasForeignKey(c => c.IdManga)
                 .OnDelete(DeleteBehavior.NoAction);
         });

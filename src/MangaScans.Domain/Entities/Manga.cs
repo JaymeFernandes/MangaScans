@@ -15,10 +15,9 @@ public class Manga
     public string Description { get; set; }
     public DateTime CreatedAt { get; set; }
     
-    public List<Category> Categories { get; set; }
-    public ICollection<CategoryManga> CategoryMangas { get; set; }
-    
-    public virtual ICollection<Chapter> _Chapters { get; set; }
+    public virtual List<Category> Categories { get; set; }
+    public virtual ICollection<CategoryManga> CategoryMangas { get; set; }
+    public virtual ICollection<Chapter> Chapters { get; set; }
 
     public Manga(string id, string name, string description)
     {

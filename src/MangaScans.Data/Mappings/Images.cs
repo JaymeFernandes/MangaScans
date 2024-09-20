@@ -10,12 +10,12 @@ public static class Image
         modelBuilder.Entity<Images>(x =>
         {
             x.HasKey(x => x.Id);
+            
             x.Property(x => x.Url)
                 .IsRequired()
                 .IsUnicode(true);
 
-            x
-                .HasOne(x => x._Chapter)
+            x.HasOne(x => x._Chapter)
                 .WithMany(x => x._Images)
                 .HasForeignKey(x => x.IdChapter);
         });

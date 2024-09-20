@@ -1,5 +1,6 @@
 using MangaScans.Data.Context;
 using MangaScans.Data.Repositories;
+using MangaScans.Data.Repositories.Shared;
 using MangaScans.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,5 +18,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IRepositoryManga, RepositoryManga>();
+        services.AddScoped<IRepositoryChapter, RepositoryChapter>();
+        services.AddScoped<IRepositoryImages, RepositoryImages>();
     }
 }
