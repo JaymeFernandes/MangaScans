@@ -55,6 +55,7 @@ public abstract class BaseRepository<TEntity> : IDisposable, IBaseRepository<TEn
     
     public virtual async Task<bool> DeleteByIdAsync(int id)
     {
+        
         var entity = await GetById(id);
 
         if (entity == null) return false;
@@ -64,9 +65,13 @@ public abstract class BaseRepository<TEntity> : IDisposable, IBaseRepository<TEn
 
     public virtual async Task<bool> DeleteByIdAsync(string id)
     {
+        if (string.IsNullOrEmpty(id))
+            return false;
+        
         var entity = await GetById(id);
         
-        if (entity == null) return false;
+        if (entity == null) 
+            return false;
 
         return await DeleteAsync(entity);
     }

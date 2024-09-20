@@ -1,81 +1,144 @@
 using MangaScans.Api.Controllers.Shared;
 using MangaScans.Application.DTOs.Request;
-using MangaScans.Application.DTOs.Response;
-using MangaScans.Data.Context;
 using MangaScans.Data.Exceptions;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MangaScans.Api.Controllers;
 
-[Tags("Private Routes (Admin)", "Mangas")]
+/// <summary>
+/// AdminMangaController provides endpoints for managing mangas, including CRUD operations and category management.
+/// </summary>
+[Tags("Mangas")]
 [Route("api/manga")]
 public class AdminMangaController : CustomControllerBase
 {
-    protected readonly IRepositoryManga _manga;
+    private readonly IRepositoryManga _mangaRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AdminMangaController([FromServices] IRepositoryManga manga, [FromServices] IHttpContextAccessor httpContext)
-    {
-        _manga = manga;
-        _httpContextAccessor = httpContext;
-    }
-    
     /// <summary>
-    /// Retorna todos os mangas do banco de dados.
+    /// Initializes a new instance of the AdminMangaController class.
     /// </summary>
-    /// <returns>Uma lista de todos os mangas disponíveis.</returns>
-    /// <response code="200">Retorna a lista de mangas.</response>
-    /// <response code="404">Lança uma exceção se não houver mangas.</response>
+    /// <param name="mangaRepository">The manga repository service injected via dependency injection.</param>
+    /// <param name="httpContextAccessor">The HTTP context accessor injected via dependency injection.</param>
+    public AdminMangaController([FromServices] IRepositoryManga mangaRepository, [FromServices] IHttpContextAccessor httpContextAccessor)
+    {
+        _mangaRepository = mangaRepository;
+        _httpContextAccessor = httpContextAccessor;
+    }
+
+    /// <summary>
+    /// Retrieves all mangas from the database.
+    /// </summary>
+    /// <returns>A list of all mangas.</returns>
+    /// <response code="200">Returns the list of mangas.</response>
+    /// <response code="404">Throws an exception if no mangas are found.</response>
     [HttpGet]
-    [ProducesResponseType(typeof(MangaDtoRequest), 200)]
+    [ProducesResponseType(typeof(IEnumerable<MangaDtoRequest>), 200)]
     [ProducesResponseType(typeof(ProblemDetails), 404)]
     public async Task<IActionResult> GetAllAsync()
     {
-        var mangas = await _manga.GetAll();
+        var mangas = await _mangaRepository.GetAll();
 
-        if (mangas.Count == 0) 
-            throw new DbEntityException("there are no mangas at the moment");
-        
+        if (mangas.Count == 0)
+            throw new DbEntityException("No mangas available at the moment.");
+
         return Ok(mangas);
     }
-    
+
     /// <summary>
-    /// Adiciona um novo manga ao banco de dados.
+    /// Adds a new manga to the database.
     /// </summary>
-    /// <param name="manga">Objeto DTO que contém os dados do manga a ser adicionado.</param>
-    /// <returns>Retorna o manga recém-adicionado.</returns>
-    /// <response code="201">Manga adicionado com sucesso.</response>
-    /// <response code="401">Lança a  exeção caso não consiga adicionar o manga</response>
+    /// <param name="manga">DTO object containing the data for the manga to be added.</param>
+    /// <returns>Returns the newly added manga.</returns>
+    /// <response code="201">Manga successfully added.</response>
+    /// <response code="400">Throws an exception if there was an error adding the manga.</response>
     [HttpPost]
     [ProducesResponseType(typeof(MangaDtoRequest), 201)]
-    [ProducesResponseType(typeof(ProblemDetails), 404)]
+    [ProducesResponseType(typeof(ProblemDetails), 400)]
     public async Task<IActionResult> AddAsync([FromBody] MangaDtoRequest manga)
     {
+        if (manga == null || string.IsNullOrEmpty(manga.Name) || string.IsNullOrEmpty(manga.Description))
+            return BadRequest("Invalid manga data provided.");
+
         var request = _httpContextAccessor.HttpContext.Request;
         var baseUrl = $"{request.Scheme}://{request.Host}{request.PathBase}";
-        
+
         var entity = new Manga(manga.Category, manga.Name, manga.Description);
-        
-        var response = await _manga.AddAsync(entity);
+        var response = await _mangaRepository.AddAsync(entity);
 
-        if (!response) 
-            throw new DbEntityException("There was an error adding the manga");
+        if (!response)
+            throw new DbEntityException("Error occurred while adding the manga.");
 
-        return Created($"{baseUrl}/api/{entity.Id}/", entity);
+        return Created($"{baseUrl}/api/manga/{entity.Id}", entity);
     }
 
+    /// <summary>
+    /// Updates an existing manga.
+    /// </summary>
+    /// <param name="id">The unique identifier of the manga to update.</param>
+    /// <param name="manga">DTO object containing the updated data for the manga.</param>
+    /// <returns>Returns a status indicating whether the update was successful.</returns>
+    /// <response code="200">Manga successfully updated.</response>
+    /// <response code="400">Throws an exception if the update fails.</response>
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync([FromBody] MangaDtoRequest manga, [FromRoute] string id)
+    [ProducesResponseType(typeof(void), 200)]
+    [ProducesResponseType(typeof(ProblemDetails), 400)]
+    public async Task<IActionResult> UpdateAsync([FromRoute] string id, [FromBody] MangaDtoRequest manga)
     {
-        var result =await _manga.UpdateAsync(new Manga(manga.Category, manga.Name, manga.Description), id);
+        if (string.IsNullOrEmpty(id) || manga == null)
+            return BadRequest("Invalid manga data or ID.");
 
-        if (!result) return BadRequest();
-        
+        var result = await _mangaRepository.UpdateAsync(new Manga(manga.Category, manga.Name, manga.Description), id);
+
+        if (!result)
+            throw new DbEntityException("Error occurred while updating the manga.");
+
         return Ok();
     }
+
+    /// <summary>
+    /// Adds a category to a manga.
+    /// </summary>
+    /// <param name="category">DTO object containing the manga ID and category ID to be added.</param>
+    /// <returns>Returns a status indicating whether the category was successfully added.</returns>
+    /// <response code="200">Category successfully added to the manga.</response>
+    /// <response code="400">Throws an exception if there was an error adding the category.</response>
+    [HttpPost("Category")]
+    [ProducesResponseType(typeof(void), 200)]
+    [ProducesResponseType(typeof(ProblemDetails), 400)]
+    public async Task<IActionResult> AddCategoryAsync([FromBody] CategoryMangaDtoRequest category)
+    {
+        if (category == null || string.IsNullOrEmpty(category.id_manga) || category.id_category == 0)
+            return BadRequest("Invalid category data provided.");
+
+        var result = await _mangaRepository.AddCategory(category.id_manga, category.id_category);
+
+        if (!result)
+            throw new DbEntityException("Error occurred while adding the category to the manga.");
+
+        return Ok();
+    }
+
+    /// <summary>
+    /// Deletes a manga by its unique identifier.
+    /// </summary>
+    /// <param name="id">The unique identifier of the manga to be deleted.</param>
+    /// <returns>Returns a status indicating whether the deletion was successful.</returns>
+    /// <response code="200">The manga was successfully deleted.</response>
+    /// <response code="400">Throws a BadRequest if the provided ID is invalid or if the deletion fails.</response>
+    /// [ProducesResponseType(typeof(void), 200)]
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(void), 200)]
+    [ProducesResponseType(typeof(Chapter), 400)]
+    public async Task<IActionResult> DeleteAsync([FromRoute] string id)
+    {
+        bool result = await _mangaRepository.DeleteByIdAsync(id);
+
+        if (!result)
+            return BadRequest("Invalid ID.");
     
+        return Ok();
+    }
 }

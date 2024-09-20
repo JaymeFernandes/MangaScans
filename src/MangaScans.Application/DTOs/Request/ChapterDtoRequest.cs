@@ -4,7 +4,7 @@ public class ChapterDtoRequest
 {
     public string Name { get; set; }
     
-    public int numberChapter { get; set; }
+    public int NumberChapter { get; set; }
     
     public string MangaId { get; set; }
 }

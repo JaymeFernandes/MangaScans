@@ -32,13 +32,9 @@ public static class Mangas
                 .IsRequired()
                 .IsUnicode(false);
 
-            x.HasOne(x => x._Categories)
-                .WithMany(x => x.Mangas)
-                .HasForeignKey(x => x.IdCategory);
-
-            
-
-
+            x.HasMany(m => m.Categories)
+                .WithMany(c => c.Mangas)
+                .UsingEntity<CategoryManga>();
         });
     }
 }

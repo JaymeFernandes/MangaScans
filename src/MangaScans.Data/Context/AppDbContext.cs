@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.MapCategoriesMangas();
         modelBuilder.MapCategories();
         modelBuilder.MapChapters();
         modelBuilder.MapImage();
@@ -18,8 +19,10 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    public virtual DbSet<Category> Categories { get; set; }
+    
     public virtual DbSet<Chapter> Chapters { get; set; }
     public virtual DbSet<Images> Images { get; set; }
+    public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<Manga> Mangas { get; set; }
+    public virtual DbSet<CategoryManga> CategorysMangas { get; set; }
 }

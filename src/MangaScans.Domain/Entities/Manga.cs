@@ -15,23 +15,20 @@ public class Manga
     public string Description { get; set; }
     public DateTime CreatedAt { get; set; }
     
-    public int IdCategory { get; set; }
-    
-    [JsonIgnore]
-    public virtual Category _Categories { get; set; }
+    public List<Category> Categories { get; set; }
+    public ICollection<CategoryManga> CategoryMangas { get; set; }
     
     public virtual ICollection<Chapter> _Chapters { get; set; }
 
-    public Manga(string id, int idCategory, string name, string description)
+    public Manga(string id, string name, string description)
     {
         Id = id;
         Name = name;
-        IdCategory = idCategory;
         Description = description;
         CreatedAt = DateTime.Now;
     }
 
-    public Manga(int IdCategoty, string name, string description) : this(GenerateId(), IdCategoty, name, description) { }
+    public Manga(int IdCategoty, string name, string description) : this(GenerateId(), name, description) { }
 
     private static string GenerateId()
     {

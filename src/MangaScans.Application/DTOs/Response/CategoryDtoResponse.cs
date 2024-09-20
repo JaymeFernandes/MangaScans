@@ -4,8 +4,7 @@ namespace MangaScans.Application.DTOs.Response;
 
 public class CategoryDtoResponse
 {
-    public string Name { get; set; }
-    public DateTime Create { get; set; }
+    public string Value { get; set; }
 }
 
 public static class CategoryExtensions
@@ -13,7 +12,9 @@ public static class CategoryExtensions
     public static CategoryDtoResponse ToLibraryResponse(this Category category)
         => new CategoryDtoResponse
         {
-            Name = category.Name,
-            Create = category.CreatedAt
+            Value = category.Name,
         };
+
+    public static List<CategoryDtoResponse> ToLibraryResponse(this ICollection<Category> category)
+        => category.Select(x => x.ToLibraryResponse()).ToList();
 }

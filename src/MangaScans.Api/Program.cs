@@ -1,9 +1,6 @@
 using Hellang.Middleware.ProblemDetails;
 using MangaScans.Api.Extensions;
 using MangaScans.Api.IoC;
-using MangaScans.Application.DTOs.Request;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 

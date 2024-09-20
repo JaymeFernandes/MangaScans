@@ -15,7 +15,7 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
     public override async Task<Manga> GetById(string id)
     {
         var manga = await _dbContext.Mangas
-            .Include(x => x._Categories)
+            .Include(x => x.Categories)
             .FirstAsync(x => x.Id == id);
         
         if (manga != null)
@@ -29,7 +29,7 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
 
     public async Task<List<Manga>> GetTop(int page)
         => await _dbContext.Mangas
-            .Include(c => c._Categories)
+            .Include(c => c.Categories)
             .AsNoTracking()
             .OrderByDescending(m => m.Likes  * 0.7 + m.Views * 0.3)
             .Skip((page - 1) * 10)
@@ -38,9 +38,9 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
 
     public async Task<List<Manga>> GetTopByCategory(int page, int Category)
         => await _dbContext.Mangas
-            .Include(c => c._Categories)
+            .Include(c => c.Categories)
             .AsNoTracking()
-            .Where(x => x.IdCategory == Category)
+            .Where(x => x.Categories.Any(x => x.Id == Category))
             .OrderByDescending(m => m.Likes * 0.7 + m.Views * 0.3)
             .Skip((page - 1) * 10)
             .Take(10)
@@ -48,7 +48,7 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
 
     public async Task<List<Manga>> SearchByName(string name, int page)
         => await _dbContext.Mangas
-            .Include(c => c._Categories)
+            .Include(c => c.Categories)
             .AsNoTracking()
             .Where(m => m.Name.Contains(name) || m.Description.Contains(name))
             .OrderByDescending(m => m.Likes * 0.7 + m.Views * 0.3)
@@ -62,8 +62,27 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
         
         manga.Name = mangaDto.Name;
         manga.Description = mangaDto.Description;
-        manga.IdCategory = mangaDto.IdCategory;
 
         return await UpdateAsync(manga);
+    }
+
+    public async Task<bool> AddCategory(string id, int categoryId)
+    {
+        var entity = await GetById(id);
+
+        if (entity == null)
+            return false;
+        
+        CategoryManga category = new CategoryManga()
+        {
+            CategoryId = categoryId,
+            MangaId = id
+        };
+
+        await _dbContext.AddAsync(category);
+        
+        var result = await _dbContext.SaveChangesAsync();
+
+        return result > 0;
     }
 }

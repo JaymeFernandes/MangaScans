@@ -18,7 +18,10 @@ public class MangaDtoResponse
     
     public DateTime Created { get; set; }
     
-    public CategoryDtoResponse Category { get; set; }
+    
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<CategoryDtoResponse> Category { get; set; }
+    
     
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ICollection<ChapterDtoResponse> Chapters { get; set; }
@@ -37,20 +40,14 @@ public static class MangaExtension
             Name = manga.Name,
             Description = manga.Description,
             Created = manga.CreatedAt,
-            Category  =  manga._Categories.ToLibraryResponse()
         };
         
         if (manga._Chapters != null)
-        {
-            Dto.Chapters = new List<ChapterDtoResponse>();
-            
-            foreach (var chapter in manga._Chapters)
-            {
-                Dto.Chapters.Add(chapter.ToLibraryResponse());
-            }
-        }
+            Dto.Chapters = manga._Chapters.ToLibraryResponse();
+        
 
-        if (manga._Categories != null) Dto.Category = manga._Categories.ToLibraryResponse();
+        if (manga.Categories != null) 
+            Dto.Category = manga.Categories.ToLibraryResponse();
         
         return Dto;
     }

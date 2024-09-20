@@ -24,14 +24,7 @@ public static class ChapterExtensions
         };
 
         if (chapter._Images  != null)
-        {
-            dto.Images = new List<ImageDtoResponse>();
-            
-            foreach (var image in chapter._Images)
-            {
-                dto.Images.Add(image.ToLibraryResponse());
-            }
-        }
+            dto.Images = chapter._Images.ToLibraryResponse();
 
         return dto;
     }

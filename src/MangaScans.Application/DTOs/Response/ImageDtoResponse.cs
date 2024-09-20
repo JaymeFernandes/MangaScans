@@ -16,4 +16,7 @@ public static class ImageExtensions
             Id = images.Id,
             Url = images.Url
         };
+
+    public static List<ImageDtoResponse> ToLibraryResponse(this IEnumerable<Images> images)
+        => images.Select(x => x.ToLibraryResponse()).ToList();
 }

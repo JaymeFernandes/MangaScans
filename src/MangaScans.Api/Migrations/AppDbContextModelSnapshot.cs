@@ -47,111 +47,135 @@ namespace MangaScans.Api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6657),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1218),
                             Name = "Action"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6658),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1220),
                             Name = "Adventure"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6658),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1221),
                             Name = "Comedy"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6659),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1222),
                             Name = "Drama"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6660),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1222),
                             Name = "Romance"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6660),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1234),
                             Name = "Mystery"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6661),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1235),
                             Name = "Suspense"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6661),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1236),
                             Name = "Fantasy"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6662),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1236),
                             Name = "Sci-Fi"
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6663),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1237),
                             Name = "Horror"
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6663),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1238),
                             Name = "Slice of Life"
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6664),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1239),
                             Name = "Supernatural"
                         },
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6665),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1239),
                             Name = "Historical"
                         },
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6665),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1240),
                             Name = "Sports"
                         },
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6666),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1241),
                             Name = "Harem"
                         },
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6667),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1242),
                             Name = "Yaoi"
                         },
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6667),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1242),
                             Name = "Yuri"
                         },
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTime(2024, 9, 16, 18, 49, 21, 313, DateTimeKind.Utc).AddTicks(6668),
+                            CreatedAt = new DateTime(2024, 9, 19, 22, 32, 5, 856, DateTimeKind.Utc).AddTicks(1243),
                             Name = "Isekai"
                         });
+                });
+
+            modelBuilder.Entity("MangaScans.Domain.Entities.CategoryManga", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MangaId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("MangaId");
+
+                    b.ToTable("CategorysMangas");
                 });
 
             modelBuilder.Entity("MangaScans.Domain.Entities.Chapter", b =>
@@ -230,9 +254,6 @@ namespace MangaScans.Api.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
-                    b.Property<int>("IdCategory")
-                        .HasColumnType("int");
-
                     b.Property<int>("Likes")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
@@ -251,9 +272,26 @@ namespace MangaScans.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCategory");
-
                     b.ToTable("Mangas");
+                });
+
+            modelBuilder.Entity("MangaScans.Domain.Entities.CategoryManga", b =>
+                {
+                    b.HasOne("MangaScans.Domain.Entities.Category", "Category")
+                        .WithMany("CategoryMangas")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MangaScans.Domain.Entities.Manga", "Manga")
+                        .WithMany("CategoryMangas")
+                        .HasForeignKey("MangaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Manga");
                 });
 
             modelBuilder.Entity("MangaScans.Domain.Entities.Chapter", b =>
@@ -278,20 +316,9 @@ namespace MangaScans.Api.Migrations
                     b.Navigation("_Chapter");
                 });
 
-            modelBuilder.Entity("MangaScans.Domain.Entities.Manga", b =>
-                {
-                    b.HasOne("MangaScans.Domain.Entities.Category", "_Categories")
-                        .WithMany("Mangas")
-                        .HasForeignKey("IdCategory")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("_Categories");
-                });
-
             modelBuilder.Entity("MangaScans.Domain.Entities.Category", b =>
                 {
-                    b.Navigation("Mangas");
+                    b.Navigation("CategoryMangas");
                 });
 
             modelBuilder.Entity("MangaScans.Domain.Entities.Chapter", b =>
@@ -301,6 +328,8 @@ namespace MangaScans.Api.Migrations
 
             modelBuilder.Entity("MangaScans.Domain.Entities.Manga", b =>
                 {
+                    b.Navigation("CategoryMangas");
+
                     b.Navigation("_Chapters");
                 });
 #pragma warning restore 612, 618
