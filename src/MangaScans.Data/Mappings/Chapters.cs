@@ -1,27 +1,23 @@
 using MangaScans.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MangaScans.Data.Mappings;
 
-public static class Chapters
+public class ChaptersMap : IEntityTypeConfiguration<Chapter>
 {
-    public static void MapChapters(this ModelBuilder modelBuilder)
+    public void Configure(EntityTypeBuilder<Chapter> builder)
     {
-        modelBuilder.Entity<Chapter>(x =>
-        {
-            x.HasKey(x => x.Id);
+        builder.HasKey(x => x.Id);
             
-            x.Property(x => x.Name)
-                .IsRequired()
-                .HasMaxLength(100)
-                .IsUnicode(false);
+        builder.Property(x => x.Name)
+            .IsRequired()
+            .HasMaxLength(100)
+            .IsUnicode(false);
 
-            x.HasOne(c => c._Manga)
-                .WithMany(c => c.Chapters)
-                .HasForeignKey(c => c.IdManga)
-                .OnDelete(DeleteBehavior.NoAction);
-        });
-
-
+        builder.HasOne(c => c._Manga)
+            .WithMany(c => c.Chapters)
+            .HasForeignKey(c => c.IdManga)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

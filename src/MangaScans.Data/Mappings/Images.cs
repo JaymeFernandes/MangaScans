@@ -1,23 +1,22 @@
+using System.Net.Mime;
 using MangaScans.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MangaScans.Data.Mappings;
 
-public static class Image
+public class ImageMap : IEntityTypeConfiguration<Images>
 {
-    public static void MapImage(this ModelBuilder modelBuilder)
+    public void Configure(EntityTypeBuilder<Images> builder)
     {
-        modelBuilder.Entity<Images>(x =>
-        {
-            x.HasKey(x => x.Id);
+        builder.HasKey(x => x.Id);
             
-            x.Property(x => x.Url)
-                .IsRequired()
-                .IsUnicode(true);
+        builder.Property(x => x.Url)
+            .IsRequired()
+            .IsUnicode(true);
 
-            x.HasOne(x => x._Chapter)
-                .WithMany(x => x._Images)
-                .HasForeignKey(x => x.IdChapter);
-        });
+        builder.HasOne(x => x._Chapter)
+            .WithMany(x => x._Images)
+            .HasForeignKey(x => x.IdChapter);
     }
 }

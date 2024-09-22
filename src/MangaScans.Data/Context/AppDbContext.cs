@@ -10,11 +10,11 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.MapCategoriesMangas();
-        modelBuilder.MapCategories();
-        modelBuilder.MapChapters();
-        modelBuilder.MapImage();
-        modelBuilder.MapMangas();
+        modelBuilder.ApplyConfiguration(new CategoriesMangasMap());
+        modelBuilder.ApplyConfiguration(new CategoriesMap());
+        modelBuilder.ApplyConfiguration(new CategoriesMap());
+        modelBuilder.ApplyConfiguration(new ImageMap());
+        modelBuilder.ApplyConfiguration(new MangasMap());
         
         base.OnModelCreating(modelBuilder);
     }

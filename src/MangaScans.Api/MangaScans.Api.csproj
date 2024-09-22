@@ -22,6 +22,7 @@
     <ProjectReference Include="..\MangaScans.Domain\MangaScans.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controllers\Users\" />
     <Folder Include="StaticFiles\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>

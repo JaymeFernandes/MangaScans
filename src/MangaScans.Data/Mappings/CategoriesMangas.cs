@@ -1,25 +1,23 @@
 using MangaScans.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MangaScans.Data.Mappings;
 
-public static class CategoriesMangas
+public class CategoriesMangasMap : IEntityTypeConfiguration<CategoryManga>
 {
-    public static void MapCategoriesMangas(this ModelBuilder builder)
+    public void Configure(EntityTypeBuilder<CategoryManga> builder)
     {
-        builder.Entity<CategoryManga>(x =>
-        {
-            x.HasKey(x => x.Id);
+        builder.HasKey(x => x.Id);
 
-            x.HasOne(x => x.Category)
-                .WithMany(x => x.CategoryMangas)
-                .HasForeignKey(x => x.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(x => x.Category)
+            .WithMany(x => x.CategoryMangas)
+            .HasForeignKey(x => x.CategoryId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-            x.HasOne(x => x.Manga)
-                .WithMany(x => x.CategoryMangas)
-                .HasForeignKey(x => x.MangaId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
+        builder.HasOne(x => x.Manga)
+            .WithMany(x => x.CategoryMangas)
+            .HasForeignKey(x => x.MangaId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

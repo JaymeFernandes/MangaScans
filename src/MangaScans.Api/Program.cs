@@ -11,7 +11,6 @@ builder.Services.AddProblemDetailsSetup();
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 
-
 var app = builder.Build();
 
 app.MapControllers();

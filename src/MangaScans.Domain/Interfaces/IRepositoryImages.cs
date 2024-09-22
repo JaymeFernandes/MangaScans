@@ -6,4 +6,6 @@ namespace MangaScans.Domain.Interfaces;
 public interface IRepositoryImages : IBaseRepository<Images>
 {
     public Task<string> GetUrlById(int id);
+
+    public Task<string> GenerateImageUrl(int chapterId);
 }
