@@ -18,8 +18,7 @@ public class CategoriesMap : IEntityTypeConfiguration<Category>
             .HasMaxLength(100);
                 
 
-        builder.HasData(new[]
-        {
+        builder.HasData(
             new Category(1, "Action"),
             new Category(2, "Adventure"),
             new Category(3, "Comedy"),
@@ -38,6 +37,6 @@ public class CategoriesMap : IEntityTypeConfiguration<Category>
             new Category(16, "Yaoi"),
             new Category(17, "Yuri"),
             new Category(18, "Isekai")
-        });
+        );
     }
 }

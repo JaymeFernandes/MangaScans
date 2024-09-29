@@ -1,0 +1,36 @@
+.nav-top{
+    position: fixed;
+    
+    display: grid;
+    align-items: center;
+    justify-content: space-between;
+
+    grid-template-columns: 60px;
+
+    background-color: #1B242E;
+    height: 67px;
+    width: 100%;
+
+    padding: 0 20px 0 20px;
+
+    .button-menu{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: transparent;
+
+        height: 47px;
+        width: 47px;
+        border-radius: 40%;
+
+        cursor: pointer;
+
+        &:hover{
+            background-color: #222C36;
+        }
+
+    }
+
+    
+}

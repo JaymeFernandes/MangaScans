@@ -12,7 +12,7 @@ public class AppDbContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new CategoriesMangasMap());
         modelBuilder.ApplyConfiguration(new CategoriesMap());
-        modelBuilder.ApplyConfiguration(new CategoriesMap());
+        modelBuilder.ApplyConfiguration(new ChaptersMap());
         modelBuilder.ApplyConfiguration(new ImageMap());
         modelBuilder.ApplyConfiguration(new MangasMap());
         

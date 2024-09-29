@@ -13,15 +13,22 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
+app.UseCors(x => x
+	.AllowAnyOrigin()
+	.AllowAnyMethod()
+	.AllowAnyHeader());
+
+app.UseHttpsRedirection();
+
 app.MapControllers();
 app.UseSwaggerSetup();
 app.UseProblemDetails();
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = 
-        new PhysicalFileProvider(
-            Path.Combine(app.Environment.ContentRootPath, "StaticFiles")),
-    RequestPath = "/Images"
+	FileProvider = 
+		new PhysicalFileProvider(
+			Path.Combine(app.Environment.ContentRootPath, "StaticFiles")),
+	RequestPath = "/Images"
 });
 
 app.Run();

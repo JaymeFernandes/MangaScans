@@ -47,109 +47,109 @@ namespace MangaScans.Api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4098),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3374),
                             Name = "Action"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4100),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3376),
                             Name = "Adventure"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4101),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3378),
                             Name = "Comedy"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4101),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3378),
                             Name = "Drama"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4102),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3379),
                             Name = "Romance"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4103),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3395),
                             Name = "Mystery"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4104),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3396),
                             Name = "Suspense"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4104),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3397),
                             Name = "Fantasy"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4105),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3398),
                             Name = "Sci-Fi"
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4106),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3398),
                             Name = "Horror"
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4106),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3399),
                             Name = "Slice of Life"
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4107),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3400),
                             Name = "Supernatural"
                         },
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4108),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3401),
                             Name = "Historical"
                         },
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4109),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3402),
                             Name = "Sports"
                         },
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4109),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3402),
                             Name = "Harem"
                         },
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4110),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3403),
                             Name = "Yaoi"
                         },
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4111),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3404),
                             Name = "Yuri"
                         },
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTime(2024, 9, 20, 15, 53, 40, 142, DateTimeKind.Utc).AddTicks(4112),
+                            CreatedAt = new DateTime(2024, 9, 25, 19, 33, 43, 393, DateTimeKind.Utc).AddTicks(3405),
                             Name = "Isekai"
                         });
                 });
@@ -218,6 +218,9 @@ namespace MangaScans.Api.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("IdChapter")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sequence")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
