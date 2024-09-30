@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.centralize{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-top{
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(1rem, 2rem) minmax(10rem, 30rem) 30rem auto;
+    position: fixed;
+    
+    gap: 50px;
+    border-bottom: #dedede 1px solid;
+    padding: 0 20px 0 20px;
+    height: 67px;
+    width: 100%;
+
+    background-color: #151618;
+
+    .button-menu{
+        
+        border-radius: 40%;
+        height: 47px;
+        width: 47px;
+        
+        cursor: pointer;
+
+        background-color: transparent;
+
+        &:hover{
+            background-color: #2F3233;
+        }
+
+    }
+
+    
+
+    .logo{
+        display: flex;
+        align-items: center;
+
+        user-select: none;
+
+        .logo-icon{
+            stroke: #dedede;
+            width: 30px;
+        }
+
+        span{
+            font-family: "Pacifico", cursive;
+            font-size: 24px;
+            color: #dedede;
+        }
+    }
+
+    .search-input{
+        display: grid;
+        grid-template-columns: 5em auto;
+        align-items: center;
+
+        gap: 13px;
+        border: 0.003mm solid #dedede;
+        border-radius: 6px;
+        height: 37px;
+        width: 30rem;
+
+        background-color: #000;
+
+        .input-search{
+            color: #dedede;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            height: 23px;
+            width: 90%;
+
+            background-color: transparent;
+        }   
+        
+        .button-search{
+            border-radius: 6px 0 0 6px;
+            height: 33px;
+            width: 69px;
+            
+            background-color: #222425;
+
+            
+        }
+    }
+
+    .user{
+        display: flex;
+        justify-content: end;
+
+        .user-icon{
+            border-radius: 100%;
+            border: #dedede 1px solid;
+            width: 37px;
+            height: 37px;
+
+            cursor: pointer;
+        }
+
+    }
+    
+}
+
