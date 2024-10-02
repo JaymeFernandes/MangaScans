@@ -12,7 +12,7 @@ namespace MangaScans.Api.Controllers;
 /// searching by title, and getting specific manga details.
 /// </summary>
 [Tags("Public Routes")]
-public class PublicMangaController : CustomControllerBase
+public class PublicController : CustomControllerBase
 {
     protected readonly IRepositoryManga _repositoryManga;
 
@@ -20,7 +20,7 @@ public class PublicMangaController : CustomControllerBase
     /// Initializes a new instance of the PublicController class.
     /// </summary>
     /// <param name="manga">The manga repository service injected via dependency injection.</param>
-    public PublicMangaController([FromServices] IRepositoryManga manga) => _repositoryManga = manga;
+    public PublicController([FromServices] IRepositoryManga manga) => _repositoryManga = manga;
 
     /// <summary>
     /// Redirects to the first page of top manga recommendations.

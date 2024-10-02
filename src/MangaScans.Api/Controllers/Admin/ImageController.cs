@@ -7,15 +7,13 @@ namespace MangaScans.Api.Controllers;
 
 [Route("api/admin/images")]
 [Tags("images")]
-public class AdminImageController : CustomControllerBase
+public class ImageController : CustomControllerBase
 {
     private readonly IRepositoryImages _repositoryImages;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AdminImageController(IRepositoryImages repositoryImages, IHttpContextAccessor httpContextAccessor)
+    public ImageController(IRepositoryImages repositoryImages, IHttpContextAccessor httpContextAccessor)
     {
         _repositoryImages = repositoryImages;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     [HttpGet]
@@ -36,8 +34,6 @@ public class AdminImageController : CustomControllerBase
     [HttpPost("{idChapter}")]
     public async Task<IActionResult> UploadImageAsync([FromRoute] int idChapter, IFormFile file)
     {
-        var request = _httpContextAccessor.HttpContext.Request;
-        string baseUrl = $"{request.Scheme}://{request.Host}{request.PathBase}";
         var extension = Path.GetExtension(file.FileName);
         
         if (file == null || file.Length == 0)
@@ -59,7 +55,7 @@ public class AdminImageController : CustomControllerBase
         await using (var stream = new FileStream(filePath, FileMode.Create))
             await file.CopyToAsync(stream);
         
-        var imageEntity = new Images($"{baseUrl}/Images{path}", idChapter);
+        var imageEntity = new ImagesChapter($"/Images{path}", idChapter);
         bool result = await _repositoryImages.AddAsync(imageEntity);
 
         if (!result)

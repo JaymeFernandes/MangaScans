@@ -8,21 +8,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace MangaScans.Api.Controllers;
 
 /// <summary>
-/// AdminMangaController provides endpoints for managing mangas, including CRUD operations and category management.
+/// MangaController provides endpoints for managing mangas, including CRUD operations and category management.
 /// </summary>
 [Tags("Mangas")]
 [Route("api/admin/manga")]
-public class AdminMangaController : CustomControllerBase
+public class MangaController : CustomControllerBase
 {
     private readonly IRepositoryManga _mangaRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     /// <summary>
-    /// Initializes a new instance of the AdminMangaController class.
+    /// Initializes a new instance of the MangaController class.
     /// </summary>
     /// <param name="mangaRepository">The manga repository service injected via dependency injection.</param>
     /// <param name="httpContextAccessor">The HTTP context accessor injected via dependency injection.</param>
-    public AdminMangaController([FromServices] IRepositoryManga mangaRepository, [FromServices] IHttpContextAccessor httpContextAccessor)
+    public MangaController([FromServices] IRepositoryManga mangaRepository, [FromServices] IHttpContextAccessor httpContextAccessor)
     {
         _mangaRepository = mangaRepository;
         _httpContextAccessor = httpContextAccessor;
@@ -65,7 +65,7 @@ public class AdminMangaController : CustomControllerBase
         var request = _httpContextAccessor.HttpContext.Request;
         var baseUrl = $"{request.Scheme}://{request.Host}{request.PathBase}";
 
-        var entity = new Manga(manga.Category, manga.Name, manga.Description);
+        var entity = new Manga(manga.Name, manga.Description);
         var response = await _mangaRepository.AddAsync(entity);
 
         if (!response)
@@ -90,7 +90,7 @@ public class AdminMangaController : CustomControllerBase
         if (string.IsNullOrEmpty(id) || manga == null)
             return BadRequest("Invalid manga data or ID.");
 
-        var result = await _mangaRepository.UpdateAsync(new Manga(manga.Category, manga.Name, manga.Description), id);
+        var result = await _mangaRepository.UpdateAsync(new Manga(manga.Name, manga.Description), id);
 
         if (!result)
             throw new DbEntityException("Error occurred while updating the manga.");

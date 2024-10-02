@@ -8,19 +8,19 @@ using Microsoft.AspNetCore.Mvc;
 namespace MangaScans.Api.Controllers.Shared;
 
 /// <summary>
-/// AdminChapterController provides endpoints for managing chapters, including CRUD operations.
+/// ChapterController provides endpoints for managing chapters, including CRUD operations.
 /// </summary>
 [Tags("Chapters")]
 [Route("api/admin/chapter")]
-public class AdminChapterController : CustomControllerBase
+public class ChapterController : CustomControllerBase
 {
     protected readonly IRepositoryChapter _chapterRepository;
     
     /// <summary>
-    /// Initializes a new instance of the AdminChapterController class.
+    /// Initializes a new instance of the ChapterController class.
     /// </summary>
     /// <param name="chapterRepository">The chapter repository service injected via dependency injection.</param>
-    public AdminChapterController([FromServices] IRepositoryChapter chapterRepository) => _chapterRepository = chapterRepository;
+    public ChapterController([FromServices] IRepositoryChapter chapterRepository) => _chapterRepository = chapterRepository;
     
     /// <summary>
     /// Retrieves all chapters.

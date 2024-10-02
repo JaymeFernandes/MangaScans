@@ -3,7 +3,7 @@ using MangaScans.Domain.Entities.Shared;
 
 namespace MangaScans.Domain.Entities;
 
-public class Images
+public class ImagesChapter
 {
     public int Id { get; set; }
     public int IdChapter { get; set; }
@@ -14,18 +14,18 @@ public class Images
     [JsonIgnore]
     public virtual Chapter _Chapter { get; set; }
     
-    public Images(int id, string urlCode, int idChapter)
+    public ImagesChapter(int id, string urlCode, int idChapter)
     {
         Id = id;
         IdChapter = idChapter;
         Url = urlCode;
     }
     
-    public Images(string url, int idChapter) : this(0,  url, idChapter) { }
+    public ImagesChapter(string url, int idChapter) : this(0,  url, idChapter) { }
     
-    public Images(int id, string url, int idChapter, int sequence) : this(id, url, idChapter)
+    public ImagesChapter(int id, string url, int idChapter, int sequence) : this(id, url, idChapter)
         => Sequence = sequence;
     
-    public Images(string url, int idChapter, int sequence) : this(0, url, idChapter, sequence) { }
+    public ImagesChapter(string url, int idChapter, int sequence) : this(0, url, idChapter, sequence) { }
 
 }
