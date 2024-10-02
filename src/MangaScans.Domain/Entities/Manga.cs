@@ -14,7 +14,8 @@ public class Manga
     public string Name { get; set; }
     public string Description { get; set; }
     public DateTime CreatedAt { get; set; }
-    
+
+    public virtual ImagesCover Cover { get; set; }
     public virtual List<Category> Categories { get; set; }
     public virtual ICollection<CategoryManga> CategoryMangas { get; set; }
     public virtual ICollection<Chapter> Chapters { get; set; }
@@ -27,7 +28,7 @@ public class Manga
         CreatedAt = DateTime.Now;
     }
 
-    public Manga(int IdCategoty, string name, string description) : this(GenerateId(), name, description) { }
+    public Manga(string name, string description) : this(GenerateId(), name, description) { }
 
     private static string GenerateId()
     {

@@ -4,6 +4,6 @@ namespace MangaScans.Api.Controllers.Shared;
 
 [ApiController]
 [Route("api")]
-public class CustomControllerBase : ControllerBase
+public class BaseController : ControllerBase
 {
 }

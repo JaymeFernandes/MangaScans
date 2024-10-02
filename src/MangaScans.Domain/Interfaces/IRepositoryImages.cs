@@ -3,7 +3,7 @@ using MangaScans.Domain.Entities;
 
 namespace MangaScans.Domain.Interfaces;
 
-public interface IRepositoryImages : IBaseRepository<Images>
+public interface IRepositoryImages : IBaseRepository<ImagesChapter>
 {
     public Task<string> GetUrlById(int id);
 

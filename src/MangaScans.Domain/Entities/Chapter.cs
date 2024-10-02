@@ -12,7 +12,7 @@ public class Chapter : Entity
     [JsonIgnore]
     public virtual Manga _Manga { get; set; }
     
-    public virtual ICollection<Images> _Images { get; set; }
+    public virtual ICollection<ImagesChapter> _Images { get; set; }
     
 
     public Chapter(int id, string idManga, string name, int num) :  base(id, name)

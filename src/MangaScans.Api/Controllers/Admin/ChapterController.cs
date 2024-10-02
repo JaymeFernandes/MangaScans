@@ -12,7 +12,7 @@ namespace MangaScans.Api.Controllers.Shared;
 /// </summary>
 [Tags("Chapters")]
 [Route("api/admin/chapter")]
-public class ChapterController : CustomControllerBase
+public class ChapterController : BaseController
 {
     protected readonly IRepositoryChapter _chapterRepository;
     

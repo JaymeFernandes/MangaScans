@@ -16,7 +16,8 @@ public static class DependencyInjection
             
             x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), b => b.MigrationsAssembly("MangaScans.Api"));
         });
-
+        
+        services.AddScoped<IRepositoryCover, RepositoryCover>();
         services.AddScoped<IRepositoryManga, RepositoryManga>();
         services.AddScoped<IRepositoryChapter, RepositoryChapter>();
         services.AddScoped<IRepositoryImages, RepositoryImages>();

@@ -7,7 +7,7 @@ namespace MangaScans.Api.Controllers;
 
 [Route("api/admin/images")]
 [Tags("images")]
-public class ImageController : CustomControllerBase
+public class ImageController : BaseController
 {
     private readonly IRepositoryImages _repositoryImages;
 

@@ -31,6 +31,7 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
     public async Task<List<Manga>> GetTop(int page)
         => await _dbContext.Mangas
             .Include(c => c.Categories)
+            .Include(m => m.Cover)
             .AsNoTracking()
             .OrderByDescending(m => m.Likes  * 0.7 + m.Views * 0.3)
             .Skip((page - 1) * 10)

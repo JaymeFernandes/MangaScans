@@ -5,10 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MangaScans.Data.Mappings;
 
-public class ImageMap : IEntityTypeConfiguration<Images>
+public class ImageMap : IEntityTypeConfiguration<ImagesChapter>
 {
-    public void Configure(EntityTypeBuilder<Images> builder)
+    public void Configure(EntityTypeBuilder<ImagesChapter> builder)
     {
+        builder.ToTable("ImagesChapters");
+        
         builder.HasKey(x => x.Id);
             
         builder.Property(x => x.Url)

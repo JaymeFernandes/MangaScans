@@ -12,7 +12,7 @@ namespace MangaScans.Api.Controllers;
 /// </summary>
 [Tags("Mangas")]
 [Route("api/admin/manga")]
-public class MangaController : CustomControllerBase
+public class MangaController : BaseController
 {
     private readonly IRepositoryManga _mangaRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;

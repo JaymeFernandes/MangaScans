@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MangaScans.Application.DTOs.Shered;
 using MangaScans.Domain.Entities;
 
 namespace MangaScans.Application.DTOs.Response;
@@ -12,7 +13,7 @@ public class ChapterDtoResponse
     public int Num_do_Capitulo { get; set; } 
     
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public ICollection<ImageDtoResponse> Images { get; set; }
+    public ICollection<UrlImageDto> Images { get; set; }
 }
 
 public static class ChapterExtensions

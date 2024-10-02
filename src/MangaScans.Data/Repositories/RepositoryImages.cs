@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MangaScans.Data.Repositories;
 
-public class RepositoryImages : BaseRepository<Images>, IRepositoryImages
+public class RepositoryImages : BaseRepository<ImagesChapter>, IRepositoryImages
 {
     public RepositoryImages(AppDbContext dbContext) : base(dbContext) { }
 

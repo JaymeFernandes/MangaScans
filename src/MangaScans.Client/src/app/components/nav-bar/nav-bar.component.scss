@@ -9,7 +9,7 @@
 .nav-top{
     display: grid;
     align-items: center;
-    grid-template-columns: minmax(1rem, 2rem) minmax(10rem, 30rem) 30rem auto;
+    grid-template-columns: minmax(1rem, 2rem) minmax(5rem, 30rem) minmax(1rem, 30rem) auto;
     position: fixed;
     
     gap: 50px;

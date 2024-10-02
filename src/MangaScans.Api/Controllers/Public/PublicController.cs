@@ -1,8 +1,8 @@
 using MangaScans.Api.Controllers.Shared;
 using MangaScans.Application.DTOs.Response;
+using MangaScans.Application.DTOs.Response.Public_Routes;
 using MangaScans.Data.Exceptions;
 using MangaScans.Domain.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangaScans.Api.Controllers;
@@ -12,7 +12,7 @@ namespace MangaScans.Api.Controllers;
 /// searching by title, and getting specific manga details.
 /// </summary>
 [Tags("Public Routes")]
-public class PublicController : CustomControllerBase
+public class PublicController : BaseController
 {
     protected readonly IRepositoryManga _repositoryManga;
 
@@ -20,7 +20,10 @@ public class PublicController : CustomControllerBase
     /// Initializes a new instance of the PublicController class.
     /// </summary>
     /// <param name="manga">The manga repository service injected via dependency injection.</param>
-    public PublicController([FromServices] IRepositoryManga manga) => _repositoryManga = manga;
+    public PublicController([FromServices] IRepositoryManga manga)
+    {
+        _repositoryManga = manga;
+    }
 
     /// <summary>
     /// Redirects to the first page of top manga recommendations.
@@ -37,6 +40,7 @@ public class PublicController : CustomControllerBase
     [HttpGet("recommendation/{page}")]
     public async Task<IActionResult> GetTopMangas([FromRoute] int page)
     {
+        
         if (page == null || page == 0) 
             return Redirect($"/api/recommendation/1");
 
@@ -45,7 +49,7 @@ public class PublicController : CustomControllerBase
         if (mangas.Count == 0) 
             return NotFound();
 
-        return Ok(mangas.TolibraryResponse());
+        return Ok(new { Data = mangas.RecommendationToLibraryResponse() });
     }
 
     /// <summary>
@@ -62,24 +66,10 @@ public class PublicController : CustomControllerBase
         if (mangas.Count == 0) 
             return NotFound();
 
-        return Ok(mangas.TolibraryResponse());
+        return Ok(new
+        { Data = mangas.RecommendationToLibraryResponse() });
     }
-
-    /// <summary>
-    /// Retrieves a manga by its unique ID.
-    /// </summary>
-    /// <param name="id">The unique identifier of the manga.</param>
-    /// <returns>The manga with the specified ID.</returns>
-    /// <exception cref="DbEntityException">Thrown when no manga is found with the specified ID.</exception>
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] string id)
-    {
-        var manga = await _repositoryManga.GetById(id) ??
-                    throw new DbEntityException($"There is no manga with id {id}");
-
-        return Ok(manga.ToLibraryResponse());
-    }
-
+    
     /// <summary>
     /// Searches for mangas by title and retrieves the results for a specified page.
     /// </summary>
@@ -94,6 +84,23 @@ public class PublicController : CustomControllerBase
         if (mangas.Count == 0) 
             return NotFound();
 
-        return Ok(mangas.TolibraryResponse());
+        return Ok(new {Data = mangas.RecommendationToLibraryResponse()});
     }
+
+    /// <summary>
+    /// Retrieves a manga by its unique ID.
+    /// </summary>
+    /// <param name="id">The unique identifier of the manga.</param>
+    /// <returns>The manga with the specified ID.</returns>
+    /// <exception cref="DbEntityException">Thrown when no manga is found with the specified ID.</exception>
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById([FromRoute] string id)
+    {
+        var manga = await _repositoryManga.GetById(id) ??
+                    throw new DbEntityException($"There is no manga with id {id}");
+
+        return Ok(new {Data = manga.ToLibraryResponse() });
+    }
+
+    
 }
