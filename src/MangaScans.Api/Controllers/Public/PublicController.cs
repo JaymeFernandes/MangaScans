@@ -2,6 +2,7 @@ using MangaScans.Api.Controllers.Shared;
 using MangaScans.Application.DTOs.Response;
 using MangaScans.Application.DTOs.Response.Public_Routes;
 using MangaScans.Data.Exceptions;
+using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,48 +27,28 @@ public class PublicController : BaseController
     }
 
     /// <summary>
-    /// Redirects to the first page of top manga recommendations.
-    /// </summary>
-    /// <returns>A redirect to the default page (1).</returns>
-    [HttpGet("recommendation")]
-    public IActionResult TopMangas() => Redirect("1");
-
-    /// <summary>
     /// Retrieves the top manga recommendations for a specified page.
     /// </summary>
     /// <param name="page">The page number of recommendations to retrieve.</param>
     /// <returns>A list of recommended mangas on the specified page.</returns>
-    [HttpGet("recommendation/{page}")]
-    public async Task<IActionResult> GetTopMangas([FromRoute] int page)
+    [HttpGet("recommendation")]
+    public async Task<IActionResult> GetTopMangas([FromHeader(Name = "Page")] int page, 
+                                                  [FromHeader(Name = "Categories")] List<int> categories)
     {
-        
-        if (page == null || page == 0) 
-            return Redirect($"/api/recommendation/1");
+        List<Manga> mangas;
 
-        var mangas = await _repositoryManga.GetTop(page);
+        if (page == 0)
+            return BadRequest();
+        
+        if (categories.Count() == 0 || categories == null)
+            mangas = await _repositoryManga.GetTop(page);
+        else
+            mangas = await _repositoryManga.GetTopByCategories(page, categories);
 
         if (mangas.Count == 0) 
             return NotFound();
 
         return Ok(new { Data = mangas.RecommendationToLibraryResponse() });
-    }
-
-    /// <summary>
-    /// Retrieves the top manga recommendations for a specific category and page.
-    /// </summary>
-    /// <param name="page">The page number of recommendations to retrieve.</param>
-    /// <param name="category">The category ID to filter the recommendations by.</param>
-    /// <returns>A list of recommended mangas in the specified category on the specified page.</returns>
-    [HttpGet("recommendation/{page}/{category}")]
-    public async Task<IActionResult> GetTopMangas([FromRoute] int page, [FromRoute] int category)
-    {
-        var mangas = await _repositoryManga.GetTopByCategory(page, category);
-
-        if (mangas.Count == 0) 
-            return NotFound();
-
-        return Ok(new
-        { Data = mangas.RecommendationToLibraryResponse() });
     }
     
     /// <summary>

@@ -34,18 +34,18 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
             .Include(m => m.Cover)
             .AsNoTracking()
             .OrderByDescending(m => m.Likes  * 0.7 + m.Views * 0.3)
-            .Skip((page - 1) * 10)
-            .Take(10)
+            .Skip((page - 1) * 24)
+            .Take(24)
             .ToListAsync();
 
-    public async Task<List<Manga>> GetTopByCategory(int page, int Category)
+    public async Task<List<Manga>> GetTopByCategories(int page, List<int> categories)
         => await _dbContext.Mangas
             .Include(c => c.Categories)
             .AsNoTracking()
-            .Where(x => x.Categories.Any(x => x.Id == Category))
+            .Where(x => x.Categories.Any(x => categories.Contains(x.Id)))
             .OrderByDescending(m => m.Likes * 0.7 + m.Views * 0.3)
-            .Skip((page - 1) * 10)
-            .Take(10)
+            .Skip((page - 1) * 24)
+            .Take(24)
             .ToListAsync();
 
     public async Task<List<Manga>> SearchByName(string name, int page)
@@ -54,8 +54,8 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
             .AsNoTracking()
             .Where(m => m.Name.Contains(name) || m.Description.Contains(name))
             .OrderByDescending(m => m.Likes * 0.7 + m.Views * 0.3)
-            .Skip((page - 1) * 10)
-            .Take(10)
+            .Skip((page - 1) * 24)
+            .Take(24)
             .ToListAsync();
 
     public async Task<bool> UpdateAsync(Manga mangaDto, string Id)

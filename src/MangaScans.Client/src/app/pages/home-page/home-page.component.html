@@ -1,1 +1,36 @@
-<p>home-page works!</p>
+<h3 class="page">pagina: {{page()}}</h3>
+
+@if (mangas().length == 0) {
+  <div class="Notfound">
+    <h3>Infelizmente não encontrei nenhum manga</h3>
+  </div>
+}
+@else {
+  <div class="feed-header">
+    @for (item of mangas(); track $index) {
+      <div class="card">
+        <img [src]="Url + item.cover.link" class="card-cover"/>
+        <div class="card-info">
+          <span class="card-title">{{item.name.length > 16 ? (item.name.substring(0, 16) + '...') : item.name}}</span>
+          <span class="card-cap">{{item.num_chapters}} capítulos</span>
+        </div>
+        <div class="card-categories">
+  
+          @for (category of item.categories; track $index) {
+            @if ($index < 3) {
+              <span class="card-category">{{category.value}}</span>
+            }
+          }
+  
+          @if (item.categories.length > 3) {
+            <span class="card-category">+{{item.categories.length - 3}}</span>
+          }
+          
+        </div>
+      </div>
+    }
+  </div>
+}
+
+
+

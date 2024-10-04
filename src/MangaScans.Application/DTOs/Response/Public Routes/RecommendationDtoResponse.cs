@@ -29,7 +29,7 @@ public static class RecommendationDtoExtensions
             Categories = (manga.Categories != null ? manga.Categories.ToLibraryResponse() : null),
             Cover = manga.Cover != null ? 
                 manga.Cover.ToLibraryResponse() : new UrlImageDto()
-                    { Link = "/Images/Default.png" }
+                    { Link = "Images/Default.png" }
         };
 
     public static List<RecommendationDtoResponse> RecommendationToLibraryResponse(this ICollection<Manga> mangas)
