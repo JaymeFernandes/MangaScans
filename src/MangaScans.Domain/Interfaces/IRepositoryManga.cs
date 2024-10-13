@@ -7,7 +7,11 @@ public interface IRepositoryManga : IBaseRepository<Manga>
 {
     public Task<List<Manga>> GetTop(int page);
 
+    public Task<int> GetTopCount();
+
     public Task<List<Manga>> GetTopByCategories(int page, List<int> categories);
+
+    public Task<int> GetTopByCategoriesPageCount(List<int> categories);
 
     public Task<List<Manga>> SearchByName(string name, int page);
 

@@ -36,19 +36,28 @@ public class PublicController : BaseController
                                                   [FromHeader(Name = "Categories")] List<int> categories)
     {
         List<Manga> mangas;
+        int pages = 0;
 
         if (page == 0)
             return BadRequest();
-        
+
         if (categories.Count() == 0 || categories == null)
+        {
             mangas = await _repositoryManga.GetTop(page);
+            if (mangas.Count > 0)
+                pages = await _repositoryManga.GetTopCount();
+        }
         else
+        {
             mangas = await _repositoryManga.GetTopByCategories(page, categories);
+            if (mangas.Count > 0)
+                pages = await _repositoryManga.GetTopByCategoriesPageCount(categories);
+        }
 
         if (mangas.Count == 0) 
             return NotFound();
 
-        return Ok(new { Data = mangas.RecommendationToLibraryResponse() });
+        return Ok(new { Pages = pages, Data = mangas.RecommendationToLibraryResponse() });
     }
     
     /// <summary>

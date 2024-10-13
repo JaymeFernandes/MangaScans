@@ -1,0 +1,19 @@
+$Text: #dedede;
+
+$Shark: #222425;
+$BackGround: #000;
+$Stone:rgb(28 25 23);
+
+$Alizarin_Crimson: #E30D27;
+
+$Alizarin_Crimson_Light_100: lighten($Alizarin_Crimson, 40%);
+$Alizarin_Crimson_Light_200: lighten($Alizarin_Crimson, 30%);
+$Alizarin_Crimson_Light_300: lighten($Alizarin_Crimson, 20%);
+$Alizarin_Crimson_Light_400: lighten($Alizarin_Crimson, 10%);
+$Alizarin_Crimson_Light_500: $Alizarin_Crimson; // cor base
+$Alizarin_Crimson_Dark_600: darken($Alizarin_Crimson, 10%);
+$Alizarin_Crimson_Dark_700: darken($Alizarin_Crimson, 20%);
+$Alizarin_Crimson_Dark_800: darken($Alizarin_Crimson, 30%);
+$Alizarin_Crimson_Dark_900: darken($Alizarin_Crimson, 40%);
+
+

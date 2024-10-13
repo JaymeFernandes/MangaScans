@@ -38,6 +38,13 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
             .Take(24)
             .ToListAsync();
 
+    public async Task<int> GetTopCount()
+        => (await _dbContext.Mangas
+            .Include(c => c.Categories)
+            .Include(m => m.Cover)
+            .AsNoTracking()
+            .CountAsync() / 24) + 1;
+
     public async Task<List<Manga>> GetTopByCategories(int page, List<int> categories)
         => await _dbContext.Mangas
             .Include(c => c.Categories)
@@ -47,6 +54,14 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
             .Skip((page - 1) * 24)
             .Take(24)
             .ToListAsync();
+
+    public async Task<int> GetTopByCategoriesPageCount(List<int> categories)
+        => (await _dbContext.Mangas
+            .Include(c => c.Categories)
+            .Include(m => m.Cover)
+            .AsNoTracking()
+            .Where(x => x.Categories.Any(x => categories.Contains(x.Id)))
+            .CountAsync() / 24) + 1;
 
     public async Task<List<Manga>> SearchByName(string name, int page)
         => await _dbContext.Mangas
