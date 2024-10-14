@@ -2,13 +2,15 @@ using MangaScans.Api.Controllers.Shared;
 using MangaScans.Domain.Interfaces;
 using MangaScans.Api.Services;
 using MangaScans.Domain.Entities;
+using MangaScans.Identity.Consts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangaScans.Api.Controllers.Admin;
 
 [Route("api/admin/cover")]
 [Tags("cover")]
-public class CoverController : BaseController
+public class CoverController : AdminBaseController
 {
     protected readonly IRepositoryManga _repositoryManga;
     protected readonly IRepositoryCover _repositoryCover;

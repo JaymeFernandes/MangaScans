@@ -1,9 +1,11 @@
+using MangaScans.Identity.Consts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangaScans.Api.Controllers.Shared;
 
-[Authorize(Roles = "admin")]
+[ApiController]
+[Authorize(Roles = Roles.Administrator)]
 public class AdminBaseController : ControllerBase
 {
     

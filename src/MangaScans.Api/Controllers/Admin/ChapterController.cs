@@ -1,8 +1,11 @@
 using MangaScans.Application.DTOs.Request;
 using MangaScans.Application.DTOs.Response;
+using MangaScans.Application.DTOs.Response.Public_Routes;
 using MangaScans.Data.Exceptions;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
+using MangaScans.Identity.Consts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangaScans.Api.Controllers.Shared;
@@ -12,7 +15,7 @@ namespace MangaScans.Api.Controllers.Shared;
 /// </summary>
 [Tags("Chapters")]
 [Route("api/admin/chapter")]
-public class ChapterController : BaseController
+public class ChapterController : AdminBaseController
 {
     protected readonly IRepositoryChapter _chapterRepository;
     

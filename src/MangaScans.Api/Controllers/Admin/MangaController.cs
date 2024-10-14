@@ -3,6 +3,8 @@ using MangaScans.Application.DTOs.Request;
 using MangaScans.Data.Exceptions;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
+using MangaScans.Identity.Consts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangaScans.Api.Controllers;
@@ -12,7 +14,7 @@ namespace MangaScans.Api.Controllers;
 /// </summary>
 [Tags("Mangas")]
 [Route("api/admin/manga")]
-public class MangaController : BaseController
+public class MangaController : AdminBaseController
 {
     private readonly IRepositoryManga _mangaRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;

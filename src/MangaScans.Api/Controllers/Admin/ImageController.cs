@@ -1,13 +1,15 @@
 using MangaScans.Api.Controllers.Shared;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
+using MangaScans.Identity.Consts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangaScans.Api.Controllers;
 
 [Route("api/admin/images")]
 [Tags("images")]
-public class ImageController : BaseController
+public class ImageController : AdminBaseController
 {
     private readonly IRepositoryImages _repositoryImages;
 

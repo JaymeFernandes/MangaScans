@@ -10,6 +10,7 @@ builder.Services.AddSwaggerSetup();
 builder.Services.AddProblemDetailsSetup();
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthenticationSetup(builder.Configuration);
 
 var app = builder.Build();
 
@@ -19,6 +20,10 @@ app.UseCors(x => x
 	.AllowAnyHeader());
 
 app.UseHttpsRedirection();
+
+await app.UseAutenticationSetup();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.UseSwaggerSetup();

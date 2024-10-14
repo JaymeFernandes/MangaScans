@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using MangaScans.Domain.Entities;
 
-namespace MangaScans.Application.DTOs.Response;
+namespace MangaScans.Application.DTOs.Response.Public_Routes;
 
 public class MangaDtoResponse
 {

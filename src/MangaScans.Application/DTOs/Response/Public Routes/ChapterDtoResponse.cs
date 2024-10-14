@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 using MangaScans.Application.DTOs.Shered;
 using MangaScans.Domain.Entities;
 
-namespace MangaScans.Application.DTOs.Response;
+namespace MangaScans.Application.DTOs.Response.Public_Routes;
 
 public class ChapterDtoResponse
 {
