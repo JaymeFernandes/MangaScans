@@ -7,11 +7,11 @@
 
     height: 100vh;
     padding-top: 75px;
-    border-right: 1px solid #2F3233;
+    
 
     gap: 20px;
 
-    background-color: #151618;
+    background: transparent;
 
     .menu-option{
         border-radius: 13px;
@@ -31,33 +31,38 @@
 .minimal{
     align-items: center;
 
-    width: 5rem;
+    width: 6rem;
 
     .menu-option{
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: initial;
 
-    
+        width: 4rem;
 
-        .menu-option-text{
-            display: none;
+        span{
+            font-size: 11px;
         }
     }
 }
 
 .full{
     justify-content: initial;
-    width: 18rem;
+    width: 15rem;
+    opacity: 98%;
+    border-right: 1px solid #2F3233;
+    background: rgb(36,0,0);
+    background: linear-gradient(183deg, rgba(36,0,0,1) 0%, rgba(8,8,14,1) 15%, rgba(3,3,3,1) 100%);
 
     .menu-option{
         display: flex;
         align-items: center;
         justify-content: initial;
-        margin-right: 16px;
-        margin-left: 16px;
+        margin-right: 17px;
+        margin-left: 17px;
 
-        
+    
 
         gap: 11px;
     }

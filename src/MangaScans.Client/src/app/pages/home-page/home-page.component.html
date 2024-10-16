@@ -28,25 +28,46 @@
 
   <div class="feed-header">
     @for (item of mangas(); track $index) {
+
       <div class="card-manga">
-        <img [src]="Url + item.cover.link" class="card-cover"/>
-        <div class="card-info">
-          <span class="card-title">{{item.name.length > 16 ? (item.name.substring(0, 16) + '...') : item.name}}</span>
-          <span class="card-cap">{{item.num_chapters}} capítulos</span>
-        </div>
-        <div class="card-categories">
-  
-          @for (category of item.categories; track $index) {
-            @if ($index < 3) {
-              <span class="card-category">{{category.value}}</span>
+
+        <img [src]="Url + item.cover.link" style="opacity: 10%;" class="card-cover-hover"/>
+
+        <div class="card-hover">
+
+          <div class="card-info-hover">
+            <h3 class="card-title">{{item.name}}</h3>
+            <span class="card-cap">{{item.num_chapters}} capítulos</span>
+          </div>
+
+          <div class="card-categories">
+    
+            @for (category of item.categories; track $index) {
+              @if ($index < 3) {
+                <span class="card-category">{{category.value}}</span>
+              }
             }
-          }
-  
-          @if (item.categories.length > 3) {
-            <span class="card-category">{{item.categories.length - 3}}</span>
-          }
+    
+            @if (item.categories.length > 3) {
+              <span class="card-category">+ {{item.categories.length - 3}}</span>
+            }
+          </div>
+
+          
+
         </div>
+        
+
+        <div class="card-normal">
+          <img [src]="Url + item.cover.link" class="card-cover"/>
+          <span class="card-title">{{item.name.length > 27 ? (item.name.substring(0, 27) + '...') : item.name}}</span>
+        </div>
+
+        
+
       </div>
+
+      
     }
   </div>
 }
@@ -55,6 +76,8 @@
     <div class="spinner-border" role="status"></div>
   </div>
 }
+
+
   
 
 
