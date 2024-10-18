@@ -65,7 +65,12 @@ public class IdentityServices : IIdentityServices
         var result =  await _userManager.CreateAsync(user, request.Password);
 
         if (result.Succeeded)
+        {
+            await _userManager.AddToRoleAsync(user, Roles.User);
+            
             return new(true);
+        }
+            
 
         RegisterDtoResponse response = new(false);
 

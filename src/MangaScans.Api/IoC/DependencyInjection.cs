@@ -5,6 +5,8 @@ using MangaScans.Data.Repositories.Shared;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
 using MangaScans.Identity.Context;
+using MangaScans.Identity.Interfaces;
+using MangaScans.Identity.Repositories;
 using MangaScans.Identity.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -39,5 +41,6 @@ public static class DependencyInjection
         services.AddScoped<IRepositoryManga, RepositoryManga>();
         services.AddScoped<IRepositoryChapter, RepositoryChapter>();
         services.AddScoped<IRepositoryImages, RepositoryImages>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 }
