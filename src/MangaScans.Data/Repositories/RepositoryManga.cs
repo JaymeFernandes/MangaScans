@@ -17,6 +17,7 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
         var manga = await _dbContext.Mangas
             .Include(x => x.Categories)
             .Include(x => x.Chapters)
+            .Include(x => x.Cover)
             .FirstAsync(x => x.Id == id);
         
         if (manga != null)
@@ -31,6 +32,7 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
     public async Task<List<Manga>> GetTop(int page)
         => await _dbContext.Mangas
             .Include(c => c.Categories)
+            .Include(x => x.Chapters)
             .Include(m => m.Cover)
             .AsNoTracking()
             .OrderByDescending(m => m.Likes  * 0.7 + m.Views * 0.3)
@@ -48,6 +50,7 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
     public async Task<List<Manga>> GetTopByCategories(int page, List<int> categories)
         => await _dbContext.Mangas
             .Include(c => c.Categories)
+            .Include(x => x.Chapters)
             .AsNoTracking()
             .Where(x => x.Categories.Any(x => categories.Contains(x.Id)))
             .OrderByDescending(m => m.Likes * 0.7 + m.Views * 0.3)
@@ -58,7 +61,6 @@ public class RepositoryManga : BaseRepository<Manga>, IRepositoryManga
     public async Task<int> GetTopByCategoriesPageCount(List<int> categories)
         => (await _dbContext.Mangas
             .Include(c => c.Categories)
-            .Include(m => m.Cover)
             .AsNoTracking()
             .Where(x => x.Categories.Any(x => categories.Contains(x.Id)))
             .CountAsync() / 24) + 1;

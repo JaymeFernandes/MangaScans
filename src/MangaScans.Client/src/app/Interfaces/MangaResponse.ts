@@ -2,9 +2,24 @@
 export interface Manga {
   id: string;
   name: string;
+  description: string;
+  like: number;
+  dislikes : number;
+  views: number;
   num_chapters: number;
   categories: Category[];
+  chapters?: Chapter[];
   cover: Cover;
+}
+
+export interface MangaInfoResponse{
+  data: Manga;
+}
+
+export interface Chapter{
+  id: number;
+  num_do_Capitulo: number;
+  title: string;
 }
   
 export interface Category {

@@ -13,5 +13,9 @@ export class PageStatusService {
     this.MenuState.next(!this.MenuState.value);
   }
 
+  GetMangaById(id: string) {
+    
+  }
+
   constructor() { }
 }

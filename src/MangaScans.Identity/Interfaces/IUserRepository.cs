@@ -12,6 +12,6 @@ public interface IUserRepository
     public Task<UserActionResponse> RemoveFavoriteUser(string userId, string MangaId);
     public Task<FavorityResponse> GetFavoriteManga(string userId);
     
-    public Task<UserActionResponse>  AddHistoryManga(string userId, string MangaId);
+    public Task<UserActionResponse>  AddHistoryManga(string userId, string mangaId, int num);
 }
 

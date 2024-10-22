@@ -1,9 +1,11 @@
+using System.Security.Claims;
 using MangaScans.Api.Controllers.Shared;
 using MangaScans.Application.DTOs.Response;
 using MangaScans.Application.DTOs.Response.Public_Routes;
 using MangaScans.Data.Exceptions;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
+using MangaScans.Identity.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MangaScans.Api.Controllers;
@@ -16,14 +18,18 @@ namespace MangaScans.Api.Controllers;
 public class PublicController : BaseController
 {
     protected readonly IRepositoryManga _repositoryManga;
+    protected readonly IRepositoryChapter _repositoryChapter;
+    protected readonly IUserRepository _userRepository;
 
     /// <summary>
     /// Initializes a new instance of the PublicController class.
     /// </summary>
     /// <param name="manga">The manga repository service injected via dependency injection.</param>
-    public PublicController([FromServices] IRepositoryManga manga)
+    public PublicController([FromServices] IRepositoryManga manga, [FromServices] IUserRepository userRepository, [FromServices] IRepositoryChapter repositoryChapter)
     {
         _repositoryManga = manga;
+        _repositoryChapter = repositoryChapter;
+        _userRepository = userRepository;
     }
 
     /// <summary>
@@ -92,5 +98,24 @@ public class PublicController : BaseController
         return Ok(new {Data = manga.ToLibraryResponse() });
     }
 
+    [HttpGet("{mangaId}/{num:int}")]
+    public async Task<IActionResult> GetChapterByNum([FromRoute] string mangaId, [FromRoute] int num)
+    {
+        var userId = "";
+        
+        if (HttpContext.User.Identity.IsAuthenticated)
+        {
+            var user = HttpContext.User.Identity as ClaimsIdentity;
+            
+            userId = user.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+        
+        var chapter = await _repositoryChapter.GetByNum(mangaId, num, userId);
+
+        if (chapter != null)
+            return Ok(chapter.ToLibraryResponse());
+
+        return BadRequest();
+    }
     
 }

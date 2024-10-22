@@ -1,4 +1,4 @@
-<div class="nav-top fixed-top">
+<div [className]="!isAtTop() ? 'nav-top fixed-top show' : 'nav-top fixed-top' ">
     <button (click)="ToggleMenu()" class="button-menu centralize">
         <app-menu-icon></app-menu-icon>
     </button>

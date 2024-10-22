@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MangaScans.Application.DTOs.Shered;
 using MangaScans.Domain.Entities;
 
 namespace MangaScans.Application.DTOs.Response.Public_Routes;
@@ -10,6 +11,9 @@ public class MangaDtoResponse
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string Description { get; set; }
 	
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public UrlImageDto Cover { get; set; } 
+	
 	public int Views { get; set; }
 	public int Likes { get; set; }
 	public int Dislikes { get; set; }
@@ -18,7 +22,7 @@ public class MangaDtoResponse
 	
 	
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public List<CategoryDtoResponse> Category { get; set; }
+	public List<CategoryDtoResponse> Categories { get; set; }
 	
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public ICollection<ChapterDtoResponse> Chapters { get; set; }
@@ -36,6 +40,9 @@ public static class MangaExtension
 			Likes = manga.Likes,
 			Dislikes = manga.Dislikes,
 			Created = manga.CreatedAt,
+			Cover = manga.Cover != null ? 
+				manga.Cover.ToLibraryResponse() : new UrlImageDto()
+					{ Link = "Images/Default.png" }
 		};
 		
 		if (manga.Chapters != null)
@@ -43,7 +50,7 @@ public static class MangaExtension
 		
 
 		if (manga.Categories != null) 
-			Dto.Category = manga.Categories.ToLibraryResponse();
+			Dto.Categories = manga.Categories.ToLibraryResponse();
 		
 		return Dto;
 	}

@@ -168,9 +168,22 @@ public class UserRepository : IUserRepository
         };
     }
 
-    public async Task<UserActionResponse> AddHistoryManga(string userId, string mangaId)
+    public async Task<UserActionResponse> AddHistoryManga(string userId, string mangaId, int num)
     {
-        throw new NotImplementedException();
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user != null)
+        {
+            History history = new(userId, DateTime.UtcNow, mangaId, num);
+            
+            await _appIdentityDbContext.Histories.AddAsync(history);
+            
+            await _appIdentityDbContext.SaveChangesAsync();
+            
+            return new(true);
+        }
+
+        return new(false);
     }
     
 }

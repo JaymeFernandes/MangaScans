@@ -1,0 +1,30 @@
+<div [routerLink]="['/manga/' + infoManga.id]" class="card-manga">
+    <img [src]="Url + infoManga.cover.link" style="opacity: 10%;" class="card-cover-hover"/>
+
+    <div class="card-hover">
+
+      <div class="card-info-hover">
+        <h3 class="card-title">{{infoManga.name}}</h3>
+        <span class="card-cap">{{infoManga.num_chapters}} capítulos</span>
+      </div>
+
+      <div class="card-categories">
+
+        @for (category of infoManga.categories; track $index) {
+          @if ($index < 3) {
+            <span class="card-category">{{category.value}}</span>
+          }
+        }
+
+        @if (infoManga.categories.length > 3) {
+          <span class="card-category">+ {{infoManga.categories.length - 3}}</span>
+        }
+      </div>
+
+    </div>
+
+    <div class="card-normal">
+      <img [src]="Url + infoManga.cover.link" class="card-cover"/>
+      <span class="card-title">{{infoManga.name.length > 27 ? (infoManga.name.substring(0, 27) + '...') : infoManga.name}}</span>
+    </div>
+</div>

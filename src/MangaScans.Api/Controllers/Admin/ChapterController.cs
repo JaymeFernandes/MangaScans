@@ -67,10 +67,10 @@ public class ChapterController : AdminBaseController
     [HttpPost]
     public async Task<IActionResult> CreateChapter([FromBody] ChapterDtoRequest chapter)
     {
-        if (chapter == null || string.IsNullOrEmpty(chapter.MangaId) || string.IsNullOrEmpty(chapter.Name))
+        if (chapter == null || string.IsNullOrEmpty(chapter.MangaId))
             return BadRequest("Invalid chapter data. Please provide valid MangaId and Name.");
 
-        var entity = new Chapter(chapter.MangaId, chapter.Name, chapter.NumberChapter);
+        var entity = new Chapter(chapter.MangaId, "", chapter.NumberChapter);
 
         bool result = await _chapterRepository.AddAsync(entity);
 
@@ -97,7 +97,6 @@ public class ChapterController : AdminBaseController
             return NotFound($"Chapter with ID {id} not found.");
 
         // Update the existing chapter with new data
-        existingChapter.Name = chapter.Name;
         existingChapter.Num = chapter.NumberChapter;
 
         bool result = await _chapterRepository.UpdateAsync(existingChapter);
