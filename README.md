@@ -35,20 +35,18 @@ Pronto para começar? Siga os passos simples abaixo:
 
    ### No Windows (CMD):
    ```bash
-   set ConnectionStrings__MySQLConnection="Server=localhost;Database=Manga;Uid=root;Pwd=YourPassword;"
-   set ConnectionStrings__IdentityConnection="Server=localhost;Database=MangaIdentity;Uid=root;Pwd=YourPassword;"
-   set JWTConfig__SecurityKey="Your-Password-Token"
-   set UserAdmin__Password="Admin@123456"
+   set MySQLConnection="Server=localhost;Database=Manga;Uid=root;Pwd=YourPassword;"
+   set IdentityConnection="Server=localhost;Database=MangaIdentity;Uid=root;Pwd=YourPassword;"
+   set TokenSecurityKey="Your-Password-Token"
    set Admin_Email="Admin_Email"
    set Admin_Password="Admin_Password"
    ```
 
    ### No Linux/MacOS (Bash):
    ```bash
-   export ConnectionStrings__MySQLConnection="Server=localhost;Database=Manga;Uid=root;Pwd=YourPassword;"
-   export ConnectionStrings__IdentityConnection="Server=localhost;Database=MangaIdentity;Uid=root;Pwd=YourPassword;"
-   export JWTConfig__SecurityKey="Your-Password-Token"
-   export UserAdmin__Password="Admin@123456"
+   export MySQLConnection="Server=localhost;Database=Manga;Uid=root;Pwd=YourPassword;"
+   export IdentityConnection="Server=localhost;Database=MangaIdentity;Uid=root;Pwd=YourPassword;"
+   export TokenSecurityKey="Your-Password-Token"
    export Admin_Email="Admin_Email"
    export Admin_Password="Admin_Password"
    ```
