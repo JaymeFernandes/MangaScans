@@ -19,14 +19,16 @@ public static class DependencyInjection
     {
         services.AddDbContext<AppDbContext>(x =>
         {
-            string connectionString = configuration["ConnectionStrings:MySQLConnection"] ?? throw new ArgumentNullException("connection string not found");
+            var connectionString = Environment.GetEnvironmentVariable("MySQLConnection") ?? throw new ArgumentNullException("connection string not found");
+            
+            Console.WriteLine(connectionString);
             
             x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         });
 
         services.AddDbContext<AppIdentityDbContext>(x =>
         {
-            string connectionString = configuration["ConnectionStrings:IdentityConnection"] ?? throw new ArgumentNullException("connection string not found");
+            string connectionString = Environment.GetEnvironmentVariable("IdentityConnection") ?? throw new ArgumentNullException("connection string not found");
             
             x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         });

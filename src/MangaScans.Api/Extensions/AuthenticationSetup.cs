@@ -78,12 +78,12 @@ public static class AuthenticationSetup
             
             var adminUser = new User()
             {
-                UserName = app.Configuration["UserAdmin:Email"] ?? "admin@admin.com",
-                Email = app.Configuration["UserAdmin:Email"] ?? "admin@admin.com",
+                UserName = Environment.GetEnvironmentVariable("Admin_Email") ?? "admin@admin.com",
+                Email = Environment.GetEnvironmentVariable("Admin_Email") ?? "admin@admin.com",
                 EmailConfirmed = true
             };
             
-            string password = app.Configuration["UserAdmin:Password"] ?? "Admin@123456";
+            string password = Environment.GetEnvironmentVariable("AdminPassword") ?? "Admin@123456";
             var user = await userManager.FindByEmailAsync(adminUser.Email);
 
             if (user == null)

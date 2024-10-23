@@ -1,3 +1,4 @@
+using DotNetEnv;
 using Hellang.Middleware.ProblemDetails;
 using MangaScans.Api.Extensions;
 using MangaScans.Api.IoC;
@@ -5,12 +6,18 @@ using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
+if (builder.Environment.IsDevelopment())
+{
+	Env.Load();
+	builder.Services.AddSwaggerSetup();
+}
+
 builder.Services.AddControllers();
-builder.Services.AddSwaggerSetup();
 builder.Services.AddProblemDetailsSetup();
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthenticationSetup(builder.Configuration);
+builder.Configuration.AddEnvironmentVariables();
 
 var app = builder.Build();
 
