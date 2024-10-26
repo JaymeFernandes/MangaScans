@@ -38,7 +38,7 @@ public class CoverController : AdminBaseController
     [HttpPost("{idManga}")]
     public async Task<IActionResult> UploadImageCover([FromRoute] string idManga, IFormFile file)
     {
-        var imageStream = new ImageService();
+        var imageStream = new ImageCoverService();
         
         var manga = await _repositoryManga.GetById(idManga);
         

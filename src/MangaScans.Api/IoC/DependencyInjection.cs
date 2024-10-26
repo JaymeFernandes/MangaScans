@@ -21,8 +21,6 @@ public static class DependencyInjection
         {
             var connectionString = Environment.GetEnvironmentVariable("MySQLConnection") ?? throw new ArgumentNullException("connection string not found");
             
-            Console.WriteLine(connectionString);
-            
             x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         });
 

@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+StaticFiles/Covers/
+StaticFiles/Chapters/
+
 # dotenv files
 .env
 

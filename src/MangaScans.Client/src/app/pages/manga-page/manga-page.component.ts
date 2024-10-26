@@ -23,7 +23,7 @@ export class MangaPageComponent {
   pages = signal<number[]>([]);
 
   manga = signal<MangaInfoResponse | null>(null);
-  is404 = signal<boolean>(false);
+  isError = signal<boolean>(false);
 
   constructor(private mangaService: MangaService, private route : ActivatedRoute) { }
 
@@ -33,7 +33,7 @@ export class MangaPageComponent {
     });
 
     if (this.mangaId == null) {
-      this.is404.set(true);
+      this.isError.set(true);
       return;
     }
 
@@ -48,7 +48,7 @@ export class MangaPageComponent {
         this.manga.set(response);
       },
       error: (error) => {
-        this.is404.set(true);
+        this.isError.set(true);
       }
     });
   }

@@ -15,6 +15,7 @@ namespace MangaScans.Api.Controllers.Shared;
 /// </summary>
 [Tags("Chapters")]
 [Route("api/admin/chapter")]
+[Authorize(Roles = Roles.Administrator)]
 public class ChapterController : AdminBaseController
 {
     protected readonly IRepositoryChapter _chapterRepository;
@@ -38,7 +39,7 @@ public class ChapterController : AdminBaseController
         if (chapters.Count == 0) 
             throw new DbEntityException("No chapters are available at the moment.");
 
-        return Ok(chapters.ToLibraryResponse());
+        return Ok(chapters);
     }
 
     /// <summary>
@@ -55,7 +56,7 @@ public class ChapterController : AdminBaseController
         if (chapter == null)
             return NotFound($"Chapter with ID {id} not found.");
         
-        return Ok(chapter.ToLibraryResponse());
+        return Ok(chapter);
     }
 
     /// <summary>
@@ -104,7 +105,7 @@ public class ChapterController : AdminBaseController
         if (!result)
             return BadRequest("Failed to update chapter. Please try again later.");
 
-        return Ok(existingChapter.ToLibraryResponse());
+        return Ok(existingChapter);
     }
 
     /// <summary>

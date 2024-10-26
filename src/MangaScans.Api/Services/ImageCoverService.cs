@@ -2,11 +2,11 @@ using MangaScans.Domain.Entities;
 
 namespace MangaScans.Api.Services;
 
-public class ImageService
+public class ImageCoverService
 {
     private readonly string _imageDirectory;
 
-    public ImageService()
+    public ImageCoverService()
     {
         _imageDirectory = $"{Directory.GetCurrentDirectory()}/StaticFiles/Covers/";
 
@@ -14,7 +14,7 @@ public class ImageService
             Directory.CreateDirectory(_imageDirectory);
     }
 
-    public ImageService(string imageDirectory)
+    public ImageCoverService(string imageDirectory)
     {
         _imageDirectory = $"{Directory.GetCurrentDirectory()}/StaticFiles/Covers/{Path.GetDirectoryName(imageDirectory)}";
 

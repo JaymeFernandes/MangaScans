@@ -107,7 +107,7 @@ public class PublicController : BaseController
         {
             var user = HttpContext.User.Identity as ClaimsIdentity;
             
-            userId = user.FindFirst(ClaimTypes.NameIdentifier).Value;
+            userId = user.FindFirst(ClaimTypes.NameIdentifier).Value ?? "";
         }
         
         var chapter = await _repositoryChapter.GetByNum(mangaId, num, userId);

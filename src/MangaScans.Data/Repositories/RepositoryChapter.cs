@@ -1,6 +1,7 @@
 using MangaScans.Data.Context;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
+using MangaScans.Identity.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,8 @@ namespace MangaScans.Data.Repositories.Shared;
 public class RepositoryChapter : BaseRepository<Chapter>, IRepositoryChapter
 {
 
-    public RepositoryChapter(AppDbContext context, UserManager<User> user) : base(context) { }
+    public RepositoryChapter(AppDbContext context, IUserRepository user) : base(context)
+        => _userRepository = user;
 
     public async override Task<bool> AddAsync(Chapter entity)
     {
@@ -49,14 +51,12 @@ public class RepositoryChapter : BaseRepository<Chapter>, IRepositoryChapter
             .Include(x => x._Images)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Num == chapter && x.IdManga == mangaId);
-        
-        if (!string.IsNullOrEmpty(userId) && entity != null)
-        {
-            
-        };
-        
-        
+
+        if (entity != null && !string.IsNullOrEmpty(userId))
+            await _userRepository.AddHistoryManga(userId, mangaId, chapter);
 
         return entity;
     }
+
+    protected readonly IUserRepository _userRepository;
 }

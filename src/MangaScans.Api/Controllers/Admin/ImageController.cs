@@ -1,4 +1,5 @@
 using MangaScans.Api.Controllers.Shared;
+using MangaScans.Api.Services;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
 using MangaScans.Identity.Consts;
@@ -36,34 +37,19 @@ public class ImageController : AdminBaseController
     [HttpPost("{idChapter}")]
     public async Task<IActionResult> UploadImageAsync([FromRoute] int idChapter, IFormFile file)
     {
-        var extension = Path.GetExtension(file.FileName);
-        
-        if (file == null || file.Length == 0)
-            return BadRequest("File is required.");
-        
-        if (extension?.ToLower() != ".png" || file.ContentType != "image/png")
-            return BadRequest("The file must be a PNG image.");
-
         string path = await _repositoryImages.GenerateImageUrl(idChapter);
-        string basePath = $"{Directory.GetCurrentDirectory()}/StaticFiles/{Path.GetDirectoryName(path)}";
-        string filePath = $"{basePath}/{Path.GetFileName(path)}";
-        
-        if (System.IO.File.Exists(filePath))
-            return Conflict("File already exists.");
+        ChaptersImagesService image = new ChaptersImagesService(path, idChapter);
+        var imageEntity = await image.SaveImageAsync(file);
 
-        if (!Directory.Exists(basePath))
-            Directory.CreateDirectory(basePath);
-
-        await using (var stream = new FileStream(filePath, FileMode.Create))
-            await file.CopyToAsync(stream);
+        if (imageEntity == null)
+            return BadRequest();
         
-        var imageEntity = new ImagesChapter($"/Images{path}", idChapter);
         bool result = await _repositoryImages.AddAsync(imageEntity);
 
         if (!result)
             return StatusCode(500, "An error occurred while saving the image.");
 
-        return Ok(new { Url = imageEntity.Url });
+        return Ok(new { result, Url = imageEntity.Url });
     }
 
     [HttpDelete("{id}")]

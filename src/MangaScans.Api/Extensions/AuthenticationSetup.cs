@@ -14,7 +14,7 @@ public static class AuthenticationSetup
     {
         var jwtConfig = configuration.GetSection("JwtConfig");
         var SecurityKey = 
-            new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetSection("JWTConfig:SecurityKey").Value));
+            new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("TokenSecurityKey")));
 
         services.Configure<JWTConfig>(x =>
         {

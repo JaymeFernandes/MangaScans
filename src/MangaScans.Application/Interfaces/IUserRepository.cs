@@ -2,7 +2,6 @@ using MangaScans.Application.DTOs.Response.User;
 
 namespace MangaScans.Identity.Interfaces;
 
-
 public interface IUserRepository
 {
     public Task<UserActionResponse> AddLikeManga(string userId, string mangaId);

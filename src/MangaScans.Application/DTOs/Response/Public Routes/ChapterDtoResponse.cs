@@ -7,7 +7,6 @@ namespace MangaScans.Application.DTOs.Response.Public_Routes;
 public class ChapterDtoResponse
 {
     
-    public string Title { get; set; }
     
     public int Num_do_Capitulo { get; set; } 
     
@@ -19,10 +18,8 @@ public static class ChapterExtensions
 {
     public static ChapterDtoResponse ToLibraryResponse(this Chapter chapter)
     {
-        
         var dto = new ChapterDtoResponse()
         {
-            Title = chapter.Name,
             Num_do_Capitulo = chapter.Num,
         };
 
