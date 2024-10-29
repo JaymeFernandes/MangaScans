@@ -24,12 +24,10 @@ public class RepositoryImages : BaseRepository<ImagesChapter>, IRepositoryImages
     }
 
     public async Task<string> GetUrlById(int id)
-        => (await _dbContext.Images.AsNoTracking().Where(c => c.Id == id).FirstOrDefaultAsync()).Url ?? string.Empty;
+        => (await _dbContext.Images.AsNoTracking().Where(c => c.Id == id).FirstOrDefaultAsync())?.Url ?? string.Empty;
 
     public async Task<string> GenerateImageUrl(int chapterId)
     {
-        Guid fileName = Guid.NewGuid();
-        
         var chapter = await _dbContext.Chapters
             .AsNoTracking()
             .Include(x => x._Manga)

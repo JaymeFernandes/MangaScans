@@ -40,16 +40,16 @@ public static class MangaExtension
 			Likes = manga.Likes,
 			Dislikes = manga.Dislikes,
 			Created = manga.CreatedAt,
-			Cover = manga.Cover != null ? 
+			Cover = manga?.Cover != null ? 
 				manga.Cover.ToLibraryResponse() : new UrlImageDto()
 					{ Link = "Images/Default.png" }
 		};
 		
-		if (manga.Chapters != null)
+		if (manga?.Chapters != null)
 			Dto.Chapters = manga.Chapters.ToLibraryResponse();
 		
 
-		if (manga.Categories != null) 
+		if (manga?.Categories != null) 
 			Dto.Categories = manga.Categories.ToLibraryResponse();
 		
 		return Dto;

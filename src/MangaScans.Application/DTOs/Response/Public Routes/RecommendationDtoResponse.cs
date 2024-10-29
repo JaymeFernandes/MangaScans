@@ -25,9 +25,9 @@ public static class RecommendationDtoExtensions
         {
             Id = manga.Id,
             Name = manga.Name,
-            Num_chapters = (manga.Chapters != null ? manga.Chapters.Count : 0),
-            Categories = (manga.Categories != null ? manga.Categories.ToLibraryResponse() : null),
-            Cover = manga.Cover != null ? 
+            Num_chapters = (manga?.Chapters != null ? manga.Chapters.Count : 0),
+            Categories = (manga?.Categories != null ? manga.Categories.ToLibraryResponse() : null),
+            Cover = manga?.Cover != null ? 
                 manga.Cover.ToLibraryResponse() : new UrlImageDto()
                     { Link = "Images/Default.png" }
         };

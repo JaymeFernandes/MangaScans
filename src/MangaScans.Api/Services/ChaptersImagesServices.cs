@@ -7,7 +7,7 @@ namespace MangaScans.Api.Services
         private readonly string _imageDirectory;
         private readonly string _relativeDirectory;
         private readonly int _chapter;
-
+        
         public ChaptersImagesService(string imageDirectory, int chapter)
         {
             string path = Directory.GetCurrentDirectory();
@@ -19,7 +19,7 @@ namespace MangaScans.Api.Services
                 Directory.CreateDirectory(_imageDirectory);
         }
 
-        public async Task<ImagesChapter> SaveImageAsync(IFormFile file)
+        public async Task<ImagesChapter?> SaveImageAsync(IFormFile file)
         {
             if (file == null || file.Length == 0)
                 throw new ArgumentNullException("File is required.");

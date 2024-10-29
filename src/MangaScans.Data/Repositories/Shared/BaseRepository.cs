@@ -1,5 +1,6 @@
 using MangaScans.Data.Context;
 using MangaScans.Data.Interfaces.Shared;
+using MangaScans.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MangaScans.Data.Repositories.Shared;
@@ -17,11 +18,11 @@ public abstract class BaseRepository<TEntity> : IDisposable, IBaseRepository<TEn
                 .ToListAsync();
 
 
-    public virtual async Task<TEntity> GetById(int id)
+    public virtual async Task<TEntity?> GetById(int id)
         => await _dbContext.Set<TEntity>()
             .FindAsync(id);
     
-    public virtual async Task<TEntity> GetById(string id)
+    public virtual async Task<TEntity?> GetById(string id)
         => await _dbContext.Set<TEntity>()
             .FindAsync(id);
     

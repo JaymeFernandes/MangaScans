@@ -8,7 +8,6 @@ using MangaScans.Identity.Configuration;
 using MangaScans.Identity.Consts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.JsonWebTokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace MangaScans.Identity.Services;
@@ -40,14 +39,17 @@ public class IdentityServices : IIdentityServices
         
         if (result == token)
         {
-            var Usertoken = await GenerateTokensAsync(user.Email);
+            if (user.Email != null)
+            {
+                var usertoken = await GenerateTokensAsync(user.Email);
             
-            var refreshToken = await _userManager.RemoveAuthenticationTokenAsync(user, "MangaScans", address);
+                var refreshToken = await _userManager.RemoveAuthenticationTokenAsync(user, "MangaScans", address);
 
-            if (refreshToken.Succeeded)
-                await _userManager.SetAuthenticationTokenAsync(user, "MangaScans", address, Usertoken.RefreshToken);
+                if (refreshToken.Succeeded)
+                    await _userManager.SetAuthenticationTokenAsync(user, "MangaScans", address, usertoken.RefreshToken);
 
-            return Usertoken;
+                return usertoken;
+            }
         }
 
         return new(false);
@@ -92,9 +94,10 @@ public class IdentityServices : IIdentityServices
             token.Address = address;
             
             var user = await _userManager.FindByEmailAsync(request.Email);
-            
-            await _userManager.SetAuthenticationTokenAsync(user, "MangaScans", address, token.RefreshToken);
-            
+
+            if (user != null)
+                await _userManager.SetAuthenticationTokenAsync(user, "MangaScans", address, token.RefreshToken);
+
             return token;
         }
             
@@ -127,7 +130,7 @@ public class IdentityServices : IIdentityServices
         return new(true, token, refreshToken);
     }
 
-    private async Task<string> CreateToken(List<Claim> claims, bool isRefreshToken = false)
+    private Task<string> CreateToken(List<Claim> claims, bool isRefreshToken = false)
     {
         var expires = isRefreshToken ? DateTime.UtcNow.AddDays(30) : DateTime.UtcNow.AddHours(5);
 
@@ -136,12 +139,12 @@ public class IdentityServices : IIdentityServices
             issuer: _jwtConfig.Issuer,
             audience: _jwtConfig.Audience,
             claims: claims,
-            notBefore: isRefreshToken ? DateTime.UtcNow.AddHours(5) : DateTime.UtcNow,
+            notBefore: DateTime.UtcNow,
             expires: expires,
             signingCredentials: _jwtConfig.SigningCredentials
         );
 
-        return new JwtSecurityTokenHandler().WriteToken(jwt);
+        return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(jwt));
     }
 
     private async Task<IList<Claim>> GetUserClaims(User user, bool isRefreshToken = false)

@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using MangaScans.Api.Controllers.Shared;
 using MangaScans.Application.DTOs.Response.User;
+using MangaScans.Application.Interfaces;
 using MangaScans.Identity.Consts;
-using MangaScans.Identity.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

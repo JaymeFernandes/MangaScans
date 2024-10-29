@@ -1,8 +1,8 @@
 using MangaScans.Application.DTOs.Response.Public_Routes;
 using MangaScans.Application.DTOs.Response.User;
+using MangaScans.Application.Interfaces;
 using MangaScans.Data.Context;
 using MangaScans.Domain.Entities;
-using MangaScans.Identity.Interfaces;
 using MangaScans.Identity.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -81,9 +81,9 @@ public class UserRepository : IUserRepository
             var like = user.Like.FirstOrDefault(x => x.MangaId == mangaId);
 
             manga.Likes--;
-            
-            _appIdentityDbContext.Likes.Remove(like);
-            
+
+            if (like != null) _appIdentityDbContext.Likes.Remove(like);
+
             _dbContext.Mangas.Update(manga);
             
             await _dbContext.SaveChangesAsync();
@@ -128,9 +128,12 @@ public class UserRepository : IUserRepository
         if (user.Favorite.Any(x => x.MangaId == mangaId))
         {
             var entity = user.Favorite.FirstOrDefault(x => x.MangaId == mangaId);
-            
-            _appIdentityDbContext.Favorites.Remove(entity);
-            await _appIdentityDbContext.SaveChangesAsync();
+
+            if (entity != null)
+            {
+                _appIdentityDbContext.Favorites.Remove(entity);
+                await _appIdentityDbContext.SaveChangesAsync();
+            }
             
             return new(true);
         }

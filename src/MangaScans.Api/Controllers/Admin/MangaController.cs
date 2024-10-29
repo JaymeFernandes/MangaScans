@@ -2,12 +2,10 @@ using MangaScans.Api.Controllers.Shared;
 using MangaScans.Application.DTOs.Request;
 using MangaScans.Data.Exceptions;
 using MangaScans.Domain.Entities;
-using MangaScans.Domain.Interfaces;
-using MangaScans.Identity.Consts;
-using Microsoft.AspNetCore.Authorization;
+using MangaScans.Domain.Interfaces.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MangaScans.Api.Controllers;
+namespace MangaScans.Api.Controllers.Admin;
 
 /// <summary>
 /// MangaController provides endpoints for managing mangas, including CRUD operations and category management.
@@ -17,17 +15,14 @@ namespace MangaScans.Api.Controllers;
 public class MangaController : AdminBaseController
 {
     private readonly IRepositoryManga _mangaRepository;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
     /// <summary>
     /// Initializes a new instance of the MangaController class.
     /// </summary>
     /// <param name="mangaRepository">The manga repository service injected via dependency injection.</param>
-    /// <param name="httpContextAccessor">The HTTP context accessor injected via dependency injection.</param>
-    public MangaController([FromServices] IRepositoryManga mangaRepository, [FromServices] IHttpContextAccessor httpContextAccessor)
+    public MangaController([FromServices] IRepositoryManga mangaRepository)
     {
         _mangaRepository = mangaRepository;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     /// <summary>
@@ -61,11 +56,9 @@ public class MangaController : AdminBaseController
     [ProducesResponseType(typeof(ProblemDetails), 400)]
     public async Task<IActionResult> AddAsync([FromBody] MangaDtoRequest manga)
     {
-        if (manga == null || string.IsNullOrEmpty(manga.Name) || string.IsNullOrEmpty(manga.Description))
+        if (string.IsNullOrEmpty(manga.Name) || string.IsNullOrEmpty(manga.Description))
             return BadRequest("Invalid manga data provided.");
-
-        var request = _httpContextAccessor.HttpContext.Request;
-        var baseUrl = $"{request.Scheme}://{request.Host}{request.PathBase}";
+        
 
         var entity = new Manga(manga.Name, manga.Description);
         var response = await _mangaRepository.AddAsync(entity);
@@ -73,7 +66,7 @@ public class MangaController : AdminBaseController
         if (!response)
             throw new DbEntityException("Error occurred while adding the manga.");
 
-        return Created($"{baseUrl}/api/manga/{entity.Id}", entity);
+        return Created($"/api/manga/{entity.Id}", entity);
     }
 
     /// <summary>
@@ -89,7 +82,7 @@ public class MangaController : AdminBaseController
     [ProducesResponseType(typeof(ProblemDetails), 400)]
     public async Task<IActionResult> UpdateAsync([FromRoute] string id, [FromBody] MangaDtoRequest manga)
     {
-        if (string.IsNullOrEmpty(id) || manga == null)
+        if (string.IsNullOrEmpty(id))
             return BadRequest("Invalid manga data or ID.");
 
         var result = await _mangaRepository.UpdateAsync(new Manga(manga.Name, manga.Description), id);
@@ -112,7 +105,7 @@ public class MangaController : AdminBaseController
     [ProducesResponseType(typeof(ProblemDetails), 400)]
     public async Task<IActionResult> AddCategoryAsync([FromBody] CategoryMangaDtoRequest category)
     {
-        if (category == null || string.IsNullOrEmpty(category.id_manga) || category.id_category == 0)
+        if (string.IsNullOrEmpty(category.id_manga) || category.id_category == 0)
             return BadRequest("Invalid category data provided.");
 
         var result = await _mangaRepository.AddCategory(category.id_manga, category.id_category);

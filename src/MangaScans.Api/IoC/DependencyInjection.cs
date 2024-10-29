@@ -1,11 +1,11 @@
+using MangaScans.Application.Interfaces;
 using MangaScans.Application.Services;
 using MangaScans.Data.Context;
 using MangaScans.Data.Repositories;
-using MangaScans.Data.Repositories.Shared;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces;
+using MangaScans.Domain.Interfaces.Data;
 using MangaScans.Identity.Context;
-using MangaScans.Identity.Interfaces;
 using MangaScans.Identity.Repositories;
 using MangaScans.Identity.Services;
 using Microsoft.AspNetCore.Identity;
@@ -19,15 +19,14 @@ public static class DependencyInjection
     {
         services.AddDbContext<AppDbContext>(x =>
         {
-            var connectionString = Environment.GetEnvironmentVariable("MySQLConnection") ?? throw new ArgumentNullException("connection string not found");
-            
+            var connectionString = Environment.GetEnvironmentVariable("MySQLConnection") ?? throw new ArgumentException("connection string not found");
             x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         });
 
         services.AddDbContext<AppIdentityDbContext>(x =>
         {
-            string connectionString = Environment.GetEnvironmentVariable("IdentityConnection") ?? throw new ArgumentNullException("connection string not found");
-            
+            string connectionString = Environment.GetEnvironmentVariable("IdentityConnection") 
+                                      ?? throw new ArgumentException("Connection string not found");
             x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         });
         

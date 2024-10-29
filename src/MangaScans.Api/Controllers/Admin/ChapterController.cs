@@ -1,14 +1,13 @@
+using MangaScans.Api.Controllers.Shared;
 using MangaScans.Application.DTOs.Request;
-using MangaScans.Application.DTOs.Response;
-using MangaScans.Application.DTOs.Response.Public_Routes;
 using MangaScans.Data.Exceptions;
 using MangaScans.Domain.Entities;
-using MangaScans.Domain.Interfaces;
+using MangaScans.Domain.Interfaces.Data;
 using MangaScans.Identity.Consts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MangaScans.Api.Controllers.Shared;
+namespace MangaScans.Api.Controllers.Admin;
 
 /// <summary>
 /// ChapterController provides endpoints for managing chapters, including CRUD operations.
@@ -18,7 +17,7 @@ namespace MangaScans.Api.Controllers.Shared;
 [Authorize(Roles = Roles.Administrator)]
 public class ChapterController : AdminBaseController
 {
-    protected readonly IRepositoryChapter _chapterRepository;
+    private readonly IRepositoryChapter _chapterRepository;
     
     /// <summary>
     /// Initializes a new instance of the ChapterController class.
@@ -68,7 +67,7 @@ public class ChapterController : AdminBaseController
     [HttpPost]
     public async Task<IActionResult> CreateChapter([FromBody] ChapterDtoRequest chapter)
     {
-        if (chapter == null || string.IsNullOrEmpty(chapter.MangaId))
+        if (string.IsNullOrEmpty(chapter.MangaId))
             return BadRequest("Invalid chapter data. Please provide valid MangaId and Name.");
 
         var entity = new Chapter(chapter.MangaId, "", chapter.NumberChapter);

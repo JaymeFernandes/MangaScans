@@ -22,7 +22,7 @@ public class ImageCoverService
             Directory.CreateDirectory(_imageDirectory);
     }
 
-    public async Task<ImagesCover> SaveCoverImageAsync(IFormFile file, string mangaName, string mangaId)
+    public async Task<ImagesCover?> SaveCoverImageAsync(IFormFile file, string mangaName, string mangaId)
     {
         string extension = Path.GetExtension(file.FileName);
         

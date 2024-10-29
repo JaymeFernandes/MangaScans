@@ -1,11 +1,11 @@
+using MangaScans.Application.Interfaces;
 using MangaScans.Data.Context;
 using MangaScans.Domain.Entities;
-using MangaScans.Domain.Interfaces;
-using MangaScans.Identity.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MangaScans.Data.Repositories.Shared;
+using MangaScans.Domain.Interfaces.Data;
 
-namespace MangaScans.Data.Repositories.Shared;
+namespace MangaScans.Data.Repositories;
 
 public class RepositoryChapter : BaseRepository<Chapter>, IRepositoryChapter
 {
@@ -39,13 +39,13 @@ public class RepositoryChapter : BaseRepository<Chapter>, IRepositoryChapter
             .OrderByDescending(x => x.Num)
             .ToListAsync();
     
-    public override async Task<Chapter> GetById(int id)
+    public override async Task<Chapter?> GetById(int id)
         => await _dbContext.Chapters
             .AsNoTracking()
             .Include(c => c._Images)
             .FirstAsync(x => x.Id == id);
 
-    public async Task<Chapter> GetByNum(string mangaId, int chapter, string? userId)
+    public async Task<Chapter?> GetByNum(string mangaId, int chapter, string? userId)
     {
         var entity = await _dbContext.Chapters
             .Include(x => x._Images)
@@ -58,5 +58,5 @@ public class RepositoryChapter : BaseRepository<Chapter>, IRepositoryChapter
         return entity;
     }
 
-    protected readonly IUserRepository _userRepository;
+    private readonly IUserRepository _userRepository;
 }

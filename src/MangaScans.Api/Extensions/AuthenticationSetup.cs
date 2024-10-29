@@ -13,14 +13,14 @@ public static class AuthenticationSetup
     public static void AddAuthenticationSetup(this IServiceCollection services, IConfiguration configuration)
     {
         var jwtConfig = configuration.GetSection("JwtConfig");
-        var SecurityKey = 
-            new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("TokenSecurityKey")));
+        var securityKey = 
+            new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("TokenSecurityKey") ?? throw new ArgumentException()));
 
         services.Configure<JWTConfig>(x =>
         {
-            x.Issuer = jwtConfig["Issuer"];
-            x.Audience = jwtConfig["Audience"];
-            x.SigningCredentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
+            x.Issuer = jwtConfig["Issuer"] ?? throw new ArgumentException("Issuer is missing");
+            x.Audience = jwtConfig["Audience"] ?? throw new ArgumentException("Audience is missing");;
+            x.SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
         });
 
         services.Configure<IdentityOptions>(options =>
@@ -41,7 +41,7 @@ public static class AuthenticationSetup
             ValidAudience = jwtConfig["Audience"],
             
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = SecurityKey,
+            IssuerSigningKey = securityKey,
             
             RequireExpirationTime = true,
             ValidateLifetime = true,
@@ -83,7 +83,7 @@ public static class AuthenticationSetup
                 EmailConfirmed = true
             };
             
-            string password = Environment.GetEnvironmentVariable("AdminPassword") ?? "Admin@123456";
+            string password = Environment.GetEnvironmentVariable("Admin_Password") ?? "Admin@123456";
             var user = await userManager.FindByEmailAsync(adminUser.Email);
 
             if (user == null)
