@@ -1,6 +1,6 @@
 <div [className]="!isAtTop() ? 'nav-top fixed-top show' : 'nav-top fixed-top' ">
     <button (click)="ToggleMenu()" class="button-menu centralize">
-        <app-menu-icon></app-menu-icon>
+        <mangas-icon iconSelected="menu-icon"></mangas-icon>
     </button>
 
     <div class="logo">
@@ -12,7 +12,7 @@
 
     <div class="search-input">
         <button class="btn btn-dark button-search centralize">
-            <app-search-icon></app-search-icon>
+            <mangas-icon iconSelected="search-icon"></mangas-icon>
         </button>
 
         <input class="input-search" type="text" name="search" id="search" placeholder="Qual é a leitura de hoje...">

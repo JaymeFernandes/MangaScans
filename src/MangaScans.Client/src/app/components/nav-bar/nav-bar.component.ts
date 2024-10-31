@@ -1,12 +1,11 @@
 import { Component, signal, HostListener } from '@angular/core';
-import { MenuIconComponent } from '../icons/menu-icon/menu-icon.component';
-import { SearchIconComponent } from '../icons/search-icon/search-icon.component';
+import { MangasIconComponent } from '../icons/mangas-icon/mangas-icon.component';
 import { PageStatusService } from '../../services/page-status.service';
 
 @Component({
   selector: 'nav-bar',
   standalone: true,
-  imports: [MenuIconComponent, SearchIconComponent],
+  imports: [ MangasIconComponent ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })

@@ -1,67 +1,76 @@
-@import '../../../_variables.scss';
+@import '../../../variables.scss';
 
-.page{
-    color: #dedede;
-    font-size: 30px;
-    padding-top: 50px;
-    padding-left: 50px;
+// Variáveis de layout
+$padding-default: 50px;
+$cover-size: 230px;
+$text-color: #dedede;
+$font-size-large: 30px;
+$font-size-medium: 26px;
+$gap-large: 50px;
+$gap-small: 10px;
+$transition-speed: 0.3s;
+
+// Placeholder para centralizar itens em flex
+%flex-row-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.page-controls{
+// Placeholder para tamanho completo
+%size-100 {
+  width: 100%;
+  height: 100%;
+}
+
+// Página principal
+.page {
+  color: $text-color;
+  font-size: $font-size-large;
+  padding: $padding-default 0 0 $padding-default;
+}
+
+// Controles de página
+.page-controls {
+  @extend %flex-row-center;
+  height: 80px;
+
+  .select-control {
+    width: 10rem;
+  }
+}
+
+// Página de não encontrado
+.Notfound {
+  @extend %flex-row-center, %size-100;
+  gap: 30px;
+  user-select: none;
+
+  .notfound-text {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-
-    height: 80px;
-
-    .select-control{
-        width: 10rem;
-    }
+    font-size: $font-size-medium;
+    gap: $gap-small;
+  }
 }
 
-.Notfound{
-    width: 100%;
-    height: 100%;
+// Cabeçalho do feed
+.feed-header {
+  @extend %size-100;
+  padding-top: $gap-large;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, $cover-size);
+  gap: $gap-large;
+  transition: all $transition-speed;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
+  // Responsividade
+  @media screen and (max-width: 1220px) {
+    grid-template-columns: repeat(3, $cover-size);
+  }
 
-    user-select: none;
-
-    .notfound-text{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        font-size: 26px;
-
-        gap: 10px;
-    }
-}
-
-.feed-header{
-    padding-top: 50px;
-
-    display: grid;
-
-    justify-content: center;
-
-    grid-template-columns: 230px 230px 230px 230px;
-
-    gap: 40px;
-
-    width: 100%;
-    height: 100%;
-
-    
-
-    @media screen and (max-width: 1220px) {
-        grid-template-columns: 230px 230px 230px;
-    }
-
-    @media screen and (max-width: 660px) {
-        grid-template-columns: 230px;
-    }
+  @media screen and (max-width: 660px) {
+    grid-template-columns: $cover-size;
+  }
 }

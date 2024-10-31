@@ -4,7 +4,9 @@ using MangaScans.Application.DTOs.Response.User;
 using MangaScans.Application.Services;
 using MangaScans.Identity.Consts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace MangaScans.Api.Controllers.Users;
 
@@ -16,13 +18,17 @@ namespace MangaScans.Api.Controllers.Users;
 public class AccessAccountController : ControllerBase
 {
     private readonly IIdentityServices _identityServices;
-    
+    private readonly TokenOptions _tokenOptions;
+
     /// <summary>
     /// Initializes a new instance of the AccessAccountController class with injected identity services.
     /// </summary>
     /// <param name="identityServices">Injected service handling identity operations like login and registration.</param>
-    public AccessAccountController(IIdentityServices identityServices)
-        => _identityServices = identityServices;
+    public AccessAccountController(IIdentityServices identityServices, IOptions<TokenOptions> tokenOptions)
+    {
+        _identityServices = identityServices;
+        _tokenOptions = tokenOptions.Value;
+    }
 
     /// <summary>
     /// Authenticates a user with the provided credentials.
@@ -86,5 +92,19 @@ public class AccessAccountController : ControllerBase
             return Ok(result);
 
         return Unauthorized();
+    }
+
+    [HttpGet("validate")]
+    [Authorize]
+    public async Task<ActionResult<LoginDtoResponse>> ValidateToken()
+    {
+        var user = HttpContext.User;
+        
+        if (user == null || !user.Identity.IsAuthenticated)
+        {
+            return Unauthorized(new LoginDtoResponse(false));
+        }
+
+        return Ok(new LoginDtoResponse(true));
     }
 }

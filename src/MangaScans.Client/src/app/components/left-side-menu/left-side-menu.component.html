@@ -1,10 +1,10 @@
 <div [className]="menuState() ? 'left-side-menu full fixed-top' : 'left-side-menu minimal fixed-top'">
     <div class="menu-option" [routerLink]="['/']">
-        <app-home-icon></app-home-icon>
+        <mangas-icon iconSelected="home-icon"></mangas-icon>
         <span class="menu-option-text">Início</span>
     </div>
     <div class="menu-option">
-        <app-book-icon></app-book-icon>
+        <mangas-icon iconSelected="book-open"></mangas-icon>
         <span class="menu-option-text">Biblioteca</span>
     </div>
 </div>

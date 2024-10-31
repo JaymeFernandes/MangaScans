@@ -1,0 +1,22 @@
+<div class="page">
+    <form [formGroup]="formLogin" (submit)="onSubmitLogin()">
+        <div>
+            <label for="name">Email:</label>
+            <input type="text" id="email" formControlName="email">
+
+            @if (!formLogin.get('email')?.invalid && formLogin.get('email')?.errors?.['email']) {
+                <div class="error">
+                    Email is invalid
+                </div>
+            }
+        </div>
+        <div>
+            <label for="name">Password:</label>
+            <input type="password" id="password" formControlName="password">
+
+            
+        </div>
+
+        <button type="submit" [disabled]="formLogin.invalid">Logar</button>
+    </form>
+</div>

@@ -1,113 +1,138 @@
-.page{
+// Variáveis para valores repetidos
+$border-color: #dedede;
+$highlight-color: red;
+$base-width: 50rem;
+$default-radius: 10px;
+$transition-speed: 0.3s;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+
+  .manga-logo {
+    width: 370px;
+    height: 550px;
+    border: 4px solid $border-color;
+    border-radius: calc(1.5 * #{$default-radius}); // Ajuste usando calc() e interpolação
+    z-index: 100;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: $default-radius;
+    }
+  }
+
+  .manga-info {
+    width: $base-width;
+    display: flex;
+    flex-direction: column;
+
+    .manga-like-info {
+      display: flex;
+      gap: 40px;
+
+      .info {
+        font-size: 13px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .manga-actions {
+    @extend .flex-initial;
+    width: $base-width;
+    height: 70px;
+    gap: 20px;
+
+    .button-action {
+      @extend .action-style, .hover-effect;
+    }
+  }
+
+  .manga-description {
+    width: 60rem;
+
+    span {
+      font-size: 14px;
+      font-weight: 700;
+    }
+  }
+
+  .manga-categories {
+    width: 40rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
+    padding: 10px;
+    background-color: #000;
+    border-radius: $default-radius;
+
+    border: 1px solid $border-color;
+
+    .manga-category {
+      text-align: center;
+
+      transition: $transition-speed;
+
+      &:hover{
+        color: $highlight-color;
+      }
+    }
+  }
+
+  .manga-chapters {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+    border-radius: $default-radius;
 
-    
-
-
-    gap: 50px;
-
-    .manga-logo{
-        width: 370px;
-        height: 550px;
-
-        border: 4px solid #dedede;
-        border-radius: 15px;
-
-        img {
-            width: 100%;
-            height: 100%;
-
-            border-radius: 10px;
-        }
+    .manga-chapter {
+      @extend .action-style,  .hover-effect;
+      gap: 10px;
+      width: $base-width;
     }
+  }
 
-    .manga-info{
-        display: flex;
-        flex-direction: column;
-        justify-content: initial;
+  .selected{
+    background-color: $highlight-color;
+    border: 0px;
+  }
+}
 
-        width: 50rem;
+// Mixins e Extends para estilos repetidos
+.flex-row-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-        .manga-like-info{
-            display: flex;
-            gap: 40px;
+.flex-initial{
+  display: flex;
+  align-items: center;
+  justify-content: initial;
+}
 
-            .info{
-                font-size: 13px;
-                font-weight: 400;
-            }
-        }
-    }
+.action-style {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 10px;
+  height: 50px;
+  border: 1px solid $border-color;
+  border-radius: $default-radius;
+}
 
-    .manga-description{
-        width: 60rem;
+.hover-effect {
+  transition: $transition-speed;
+  background-color: #000;
+  cursor: pointer;
 
-        span{
-            font-size: 14px;
-            font-weight: 700;
-        }
-    }
-
-    .manga-categories{
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        align-items: center;
-        justify-items: initial;
-        gap: 50px;
-
-        padding: 10px;
-        background-color: #000;
-        border-radius: 10px;
-
-        width: 40rem;
-
-        .manga-category{
-            text-align: center;
-        }
-    }
-
-    .manga-chapters{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-
-        border-radius: 10px;
-
-        
-
-        gap: 20px;
-
-        .manga-chapter{
-            display: flex;
-            align-items: center;
-            justify-self: unset;
-
-            cursor: pointer;
-
-            background-color: #000;
-
-            border: 1px solid #dedede;
-            border-radius: 10px;
-
-            padding: 10px;
-
-            gap: 10px;
-
-            width: 50rem;
-
-            &:hover{
-                background-color: #dedede;
-                opacity: 50%;
-                border: 1px solid #000;
-
-                span{
-                    color: #000;
-                }
-            }
-        }
-    }
+  &:hover {
+    opacity: 50%;
+    border-color: $highlight-color;
+  }
 }

@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
-import { BookIconComponent } from '../../components/icons/book-icon/book-icon.component';
 import { MangaService } from '../../services/manga/manga.service';
 import { MangaInfoResponse } from '../../Interfaces/MangaResponse';
 import { environment } from '../../../environments/environment.development';
 import { Error404Component } from '../../components/error404/error404.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Action } from 'rxjs/internal/scheduler/Action';
+import { AuthService } from '../../services/authentication/authentication.service';
+import { MangasIconComponent } from '../../components/icons/mangas-icon/mangas-icon.component';
 
 @Component({
   selector: 'app-manga-page',
   standalone: true,
-  imports: [ BookIconComponent, Error404Component, RouterModule ],
+  imports: [ Error404Component, RouterModule, MangasIconComponent ],
   templateUrl: './manga-page.component.html',
   styleUrl: './manga-page.component.scss'
 })
@@ -18,14 +18,24 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 export class MangaPageComponent {
   Url = environment.apiUrl;
   page = signal<number>(1);
-  mangaId : string | null = null;
+  mangaId: string | null = null;
+
+  isAuthenticated = signal<boolean>(false);
+
+
 
   pages = signal<number[]>([]);
 
   manga = signal<MangaInfoResponse | null>(null);
   isError = signal<boolean>(false);
 
-  constructor(private mangaService: MangaService, private route : ActivatedRoute) { }
+  constructor(private mangaService: MangaService, private route : ActivatedRoute, private authService: AuthService) {
+    this.route.paramMap.subscribe(params => {
+      this.mangaId = params.get('id');
+    });
+
+    
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -50,6 +60,10 @@ export class MangaPageComponent {
       error: (error) => {
         this.isError.set(true);
       }
+    });
+
+    this.authService.GetSession().finally(() => {
+      this.isAuthenticated.set(this.authService.isAuthenticated());
     });
   }
 
