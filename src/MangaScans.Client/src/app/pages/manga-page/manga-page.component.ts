@@ -62,8 +62,8 @@ export class MangaPageComponent {
       }
     });
 
-    this.authService.GetSession().finally(() => {
-      this.isAuthenticated.set(this.authService.isAuthenticated());
+    this.authService.isAuthenticated.subscribe(authenticated => {
+      this.isAuthenticated.set(!!authenticated);
     });
   }
 

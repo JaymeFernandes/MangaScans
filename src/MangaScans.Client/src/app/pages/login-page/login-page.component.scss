@@ -1,0 +1,181 @@
+// Variáveis de estilo
+$border-default: 1px solid #dedede;
+$border-radius: 1rem;
+$login-form-size: 2.5rem;
+$box-size-x: 15rem;
+$box-size-y: 2rem;
+
+// Placeholders para reutilização
+%flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+%box-input-size {
+    height: $box-size-y;
+    width: $box-size-x;
+
+    .login__label {
+        position: absolute;
+        user-select: none;
+        top: .2rem;
+        left: .6rem;
+    }
+}
+
+%user-select-none {
+    z-index: 1;
+    position: absolute;
+
+    user-select: none;
+    pointer-events: none;
+
+    padding-top: 8px;
+}
+
+// Estilos da página
+.page {
+    @extend %flex-center;
+    width: 100%;
+    height: 89.8vh;
+
+    .box-transition{
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+
+        transition: all 1s ease-in-out;
+
+        background-color: #F00C17;
+
+        width: 100rem;
+        height: 100%;
+
+        border-radius: 90px;
+
+        z-index: 1;
+
+        
+    }
+
+    .box{
+        position: relative;
+        width: 50rem;
+        height: 30rem;
+
+        background-color: #1A232F;
+
+
+        border: $border-default;
+        border-radius: $border-radius;
+
+
+        overflow: hidden;
+
+        .entre-register, .entre-login{
+            @extend %flex-center;
+            flex-direction: column;
+            
+
+            width: 26rem;
+            height: 100%;
+        }
+
+        .login_box_forms{
+            position: absolute;
+
+            display: flex;
+            justify-content: space-between;
+
+            width: 100%;
+            height: 100%;
+        }
+
+    }
+
+    .login-view{
+        .box-transition{
+            left: -74rem;
+        }
+    }
+
+    .register-view{
+        .box-transition{
+            left: 25rem;
+        }
+    }
+
+
+    .login-form, .register-form {
+        @extend %flex-center;
+
+        position: relative;
+
+
+        flex-direction: column;
+        width: 24rem;
+        height: 30rem;
+
+
+        padding: 2.5rem 1.5rem;
+        z-index: 1;
+        gap: 20px;
+
+        .login_box, .register_box{
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .login_box_remember{
+                display: flex;
+                gap:10px;
+            }
+
+            .login_box_inputs, .register_box_inputs{
+
+                width: 15rem;
+                height: 2.5rem;
+
+                border-bottom: $border-default;
+
+                
+                .login_box__input, .register_box__input{
+                    position: relative;
+
+                    background-color: transparent;
+
+                    border: 0;
+                    outline: none;
+
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .login_box__label, .register_box__label{
+                    @extend %user-select-none;
+
+                    
+
+                    transition: all .2s ease-in-out;
+
+                    
+                    left: 4.9rem;
+                }
+
+                .login_box__icon, .register_box__icon{
+                    @extend %user-select-none;
+                    left: 18rem;
+                }
+
+                input:focus~label, input:valid~label{
+                    transform: translateY(-1.5rem) translateX(-0.5rem);
+
+
+                    font-size: 15px;
+                }   
+                
+            }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using MangaScans.Api.Controllers.Shared;
 using MangaScans.Application.DTOs.Response.Public_Routes;
+using MangaScans.Application.Interfaces;
 using MangaScans.Data.Exceptions;
 using MangaScans.Domain.Entities;
 using MangaScans.Domain.Interfaces.Data;
@@ -17,16 +18,18 @@ public class PublicController : BaseController
 {
     private readonly IRepositoryManga _repositoryManga;
     private readonly IRepositoryChapter _repositoryChapter;
+    private readonly IUserRepository _userRepository;
 
     /// <summary>
     /// Initializes a new instance of the PublicController class with dependency injection.
     /// </summary>
     /// <param name="manga">Injected manga repository service.</param>
     /// <param name="repositoryChapter">Injected chapter repository service.</param>
-    public PublicController([FromServices] IRepositoryManga manga, [FromServices] IRepositoryChapter repositoryChapter)
+    public PublicController([FromServices] IRepositoryManga manga, [FromServices] IRepositoryChapter repositoryChapter, [FromServices] IUserRepository userRepository)
     {
         _repositoryManga = manga;
         _repositoryChapter = repositoryChapter;
+        _userRepository = userRepository;
     }
 
     /// <summary>
@@ -77,7 +80,7 @@ public class PublicController : BaseController
     /// <param name="title">The title or part of the title to search for.</param>
     /// <param name="page">Page number of search results to retrieve.</param>
     /// <returns>A list of mangas that match the search criteria.</returns>
-    [HttpGet("search/{page}/{title}")]
+    [HttpGet("search/{page}/{title:int}")]
     public async Task<IActionResult> Search([FromRoute] string title, [FromRoute] int page)
     {
         var mangas = await _repositoryManga.SearchByName(title, page);
@@ -100,10 +103,21 @@ public class PublicController : BaseController
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] string id)
     {
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        var userId = identity?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+        
         var manga = await _repositoryManga.GetById(id) ??
                     throw new DbEntityException($"There is no manga with id {id}");
+        
+        var result = manga.ToLibraryResponse();
 
-        return Ok(new { Data = manga.ToLibraryResponse() });
+        if (identity != null || !string.IsNullOrEmpty(userId))
+        {
+            result.IsLiked = await _userRepository.IsLikeManga(userId, id);
+            result.IsFavorite = await _userRepository.IsFavoriteManga(userId, id);
+        }
+
+        return Ok(new { Data = result });
     }
 
     /// <summary>

@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { Manga } from '../../Interfaces/MangaResponse';
 import { CardComponent } from '../../components/card/card.component';
 import { Error404Component } from '../../components/error404/error404.component';
+import { AuthService } from '../../services/authentication/authentication.service';
 
 
 @Component({

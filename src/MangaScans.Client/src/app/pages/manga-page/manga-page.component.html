@@ -1,20 +1,21 @@
-
 @if (manga() != null) {
     <div class="page w-100 h-100 pb-4">
         <div class="manga-logo">
-            <img [src]="Url + manga()?.data?.cover?.link" alt="Logo">
+            <img [src]="Url + manga()?.data?.cover?.link" alt="Logo" />
         </div>
 
         <div class="manga-info">
-            <h1>{{manga()?.data?.name}}</h1>
+            <h1>{{ manga()?.data?.name }}</h1>
             <div class="manga-like-info">
-                <span class="info">Likes: {{manga()?.data?.like ?? 0}}</span>
-                <span class="info">DisLikes {{manga()?.data?.dislikes}}</span>
-                <span class="info">Visualizações {{manga()?.data?.views ?? 0}}</span>
+                <span class="info">Likes: {{ manga()?.data?.like ?? 0 }}</span>
+                <span class="info">DisLikes {{ manga()?.data?.dislikes }}</span>
+                <span class="info"
+                    >Visualizações {{ manga()?.data?.views ?? 0 }}</span
+                >
             </div>
         </div>
 
-        @if(isAuthenticated()){
+        @if (isAuthenticated()) {
             <div class="manga-actions">
                 <div class="button-action">
                     <mangas-icon iconSelected="like-icon"></mangas-icon>
@@ -23,7 +24,7 @@
                 <div class="button-action">
                     <mangas-icon iconSelected="dislike-icon"></mangas-icon>
                 </div>
-                
+
                 <div class="button-action">
                     <mangas-icon iconSelected="book-open"></mangas-icon>
                     <span>favorito</span>
@@ -33,29 +34,36 @@
 
         <div class="manga-categories">
             @for (category of manga()?.data?.categories; track $index) {
-                <span class="manga-category">{{category.value}}</span>
+                <span class="manga-category">{{ category.value }}</span>
             }
         </div>
 
         <div class="manga-description">
-            <span>{{manga()?.data?.description}}</span>
+            <span>{{ manga()?.data?.description }}</span>
         </div>
-        
 
         <div class="manga-chapters">
             @for (item of manga()?.data?.chapters; track $index) {
                 @if ($index >= (page() - 1) * 10 && $index <= page() * 10) {
-                    <div class="manga-chapter" [routerLink]="['/read/' + mangaId + '/' + item.num_do_Capitulo]">
+                    <div
+                        class="manga-chapter"
+                        [routerLink]="[
+                            '/read/' + mangaId + '/' + item.num_do_Capitulo,
+                        ]"
+                    >
                         <mangas-icon iconSelected="book"></mangas-icon>
-                        <span class="manga-chapter-number">Capitulo {{item.num_do_Capitulo}}</span>
+                        <span class="manga-chapter-number"
+                            >Capitulo {{ item.num_do_Capitulo }}</span
+                        >
                     </div>
                 }
             }
         </div>
 
         <div class="manga-pagination-Control d-flex gap-1">
-
-            <button class="btn btn-dark" (click)="nextPage(false)">Anterior</button>
+            <button class="btn btn-dark" (click)="nextPage(false)">
+                Anterior
+            </button>
 
             @if (page() > 5) {
                 <button class="btn btn-dark" (click)="page.set(1)">1</button>
@@ -64,21 +72,26 @@
 
             @for (item of pages(); track $index) {
                 @if (page() == item) {
-                    <button class="btn btn-dark selected">{{item}}</button>
-                }
-                @else if (item - 2 >= page() - 3 && item <= page() + 3) {
-                    
-                    <button class="btn btn-dark" (click)="page.set($index + 1)">{{item}}</button>
+                    <button class="btn btn-dark selected">{{ item }}</button>
+                } @else if (item - 2 >= page() - 3 && item <= page() + 3) {
+                    <button class="btn btn-dark" (click)="page.set($index + 1)">
+                        {{ item }}
+                    </button>
                 }
             }
 
             @if (pages().length > 5 && page() + 6 <= pages().length) {
-                <button class="btn btn-dark" (click)="page.set(pages().length)">...</button>
-                <button class="btn btn-dark" (click)="page.set(pages().length)">{{pages().length + 1}}</button>
+                <button class="btn btn-dark" (click)="page.set(pages().length)">
+                    ...
+                </button>
+                <button class="btn btn-dark" (click)="page.set(pages().length)">
+                    {{ pages().length + 1 }}
+                </button>
             }
 
-            <button class="btn btn-dark" (click)="nextPage(true)">Próximo</button>
-            
+            <button class="btn btn-dark" (click)="nextPage(true)">
+                Próximo
+            </button>
         </div>
     </div>
 }
@@ -86,4 +99,3 @@
 @if (isError()) {
     <app-error404></app-error404>
 }
-

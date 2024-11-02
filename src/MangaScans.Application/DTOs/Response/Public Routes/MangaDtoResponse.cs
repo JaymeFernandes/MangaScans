@@ -18,6 +18,9 @@ public class MangaDtoResponse
 	public int Likes { get; set; }
 	public int Dislikes { get; set; }
 	
+	public bool IsLiked { get; set; } = false;
+	public bool IsFavorite { get; set; } = false;
+	
 	public DateTime Created { get; set; }
 	
 	

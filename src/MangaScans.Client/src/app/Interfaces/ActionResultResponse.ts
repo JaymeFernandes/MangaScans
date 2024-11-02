@@ -1,6 +1,6 @@
 
 export interface ActionResultResponse {
-  "success": boolean;
+  "isSuccess": boolean;
   "errors": string[];
 }
 

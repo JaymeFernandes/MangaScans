@@ -7,6 +7,8 @@ export interface Manga {
   dislikes : number;
   views: number;
   num_chapters: number;
+  isliked: boolean;
+  isFavorite: boolean;
   categories: Category[];
   chapters?: Chapter[];
   cover: Cover;

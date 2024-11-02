@@ -7,4 +7,12 @@
         <mangas-icon iconSelected="book-open"></mangas-icon>
         <span class="menu-option-text">Biblioteca</span>
     </div>
+    @if (isAuthenticated()) {
+        <div class="menu-option" (click)="logout()">
+            <mangas-icon iconSelected="logout-icon"></mangas-icon>
+            <span class="menu-option-text">Sair</span>
+        </div>
+    }
+    
+
 </div>

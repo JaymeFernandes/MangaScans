@@ -1,22 +1,77 @@
 <div class="page">
-    <form [formGroup]="formLogin" (submit)="onSubmitLogin()">
-        <div>
-            <label for="name">Email:</label>
-            <input type="text" id="email" formControlName="email">
 
-            @if (!formLogin.get('email')?.invalid && formLogin.get('email')?.errors?.['email']) {
-                <div class="error">
-                    Email is invalid
+    <div class="box register-view" [className]="!IsLogin() ? 'box login-view' : 'box register-view'">
+        <div class="login_box_forms">
+            <form [formGroup]="formLogin" (submit)="onSubmitLogin()" class="login-form" >
+                <div class="login_box">
+                    <h2>Entrar</h2>
+                    <div class="login_box_inputs">
+                        <mangas-icon class="login_box__icon" iconSelected="user-icon"></mangas-icon>
+                        <input required class="login_box__input" type="text" id="email" formControlName="email" >
+                        <label class="login_box__label" for="email">Email</label>
+                    </div>
+                    <div class="login_box_inputs">
+                        <mangas-icon class="login_box__icon" iconSelected="lock-icon"></mangas-icon>
+                        <input required class="login_box__input" type="password" id="email" formControlName="password" >
+                        <label class="login_box__label" for="email">Password</label>
+                    </div>
+
+                    
+                    
                 </div>
-            }
-        </div>
-        <div>
-            <label for="name">Password:</label>
-            <input type="password" id="password" formControlName="password">
+    
+                <button class="btn btn-light" type="submit"  [disabled]="formLogin.invalid">Entrar</button>
+            </form>
+            <form [formGroup]="formRegister" (submit)="onSubmitRegister()" class="register-form">
+                <div class="register_box">
+                    <h2>Criar</h2>
+                    <div class="register_box_inputs">
+                        <mangas-icon class="register_box__icon" iconSelected="user-icon"></mangas-icon>
+                        <input required class="register_box__input" type="text" id="registerPassword" formControlName="email">
+                        <label class="register_box__label" for="registerEmail">Email</label>
+                    </div>
+                    <div class="register_box_inputs">
+                        <mangas-icon class="register_box__icon" iconSelected="lock-icon"></mangas-icon>
+                        <input required class="register_box__input" type="password" id="registerPassword" formControlName="password">
+                        <label class="register_box__label" for="registerPassword">Senha</label>
+                    </div>
+                    <div class="register_box_inputs">
+                        <mangas-icon class="register_box__icon" iconSelected="lock-icon"></mangas-icon>
+                        <input required class="register_box__input" type="password" id="confirmPassword" formControlName="confirmPassword">
+                        <label class="register_box__label" for="confirmPassword">Confirmação de Senha</label>
+                    </div>
 
+                    <div class="login_box_remember">
+                        <input type="checkbox" id="remember" formControlName="remember">
+                        <label for="remember">Lembre-se de mim</label>
+                    </div>
+                </div>
+
+                
+
+                <button class="btn btn-light" type="submit" [disabled]="formRegister.invalid">Criar conta</button>
+            </form>
             
         </div>
 
-        <button type="submit" [disabled]="formLogin.invalid">Logar</button>
-    </form>
+        
+
+        <div class="box-transition">
+            <div class="entre-login">
+                <h2>Bem-vindo</h2>
+                <p>Você ainda não tem uma conta?</p>
+                <button (click)="IsLogin.set(false)" class="btn btn-light">Register-se</button>
+            </div>
+            <div class="entre-register">
+                <h2>Bem-vindo</h2>
+                <p>Já possui uma conta?</p>
+                <button (click)="IsLogin.set(true)" class="btn btn-light">Entrar</button>
+            </div>
+        </div>
+
+        
+
+    </div>
+    
+    
 </div>

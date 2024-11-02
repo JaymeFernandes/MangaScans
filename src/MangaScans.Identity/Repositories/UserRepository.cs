@@ -95,6 +95,13 @@ public class UserRepository : IUserRepository
         return responseFailed;
     }
 
+    public async Task<bool> IsLikeManga(string userId, string mangaId)
+    {
+        var result = await _appIdentityDbContext.Likes.FirstOrDefaultAsync(x => x.UserId == userId && x.MangaId == mangaId);
+        
+        return result != null;
+    }
+
     public async Task<UserActionResponse> AddFavoriteUser(string userId, string mangaId)
     {
         var user = await _userManager.Users
@@ -143,6 +150,13 @@ public class UserRepository : IUserRepository
             Errors = new() { "User does not have a favorite to remove" }
         };
             
+    }
+
+    public async Task<bool> IsFavoriteManga(string userId, string mangaId)
+    {
+        var result = await _appIdentityDbContext.Favorites.FirstOrDefaultAsync(x => x.MangaId == mangaId && x.UserId == userId);
+        
+        return result != null;
     }
 
     public async Task<FavorityResponse> GetFavoriteManga(string userId)

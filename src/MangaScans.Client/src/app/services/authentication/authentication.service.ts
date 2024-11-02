@@ -2,8 +2,9 @@ import { Injectable, signal } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { LoginRequest, LoginResponse, RegisterRequest } from "../../Interfaces/LoginResponse";
-import { Observable, of, catchError, tap } from "rxjs";
+import { Observable, of, catchError, tap, BehaviorSubject } from "rxjs";
 import { flush } from "@angular/core/testing";
+import { ActionResultResponse } from "../../Interfaces/ActionResultResponse";
 
 @Injectable({
   providedIn: "root",
@@ -11,13 +12,20 @@ import { flush } from "@angular/core/testing";
 export class AuthService {
   private apiUrl = environment.apiUrl;
 
-  isAuthenticated = signal<boolean>(false);
+  private authenticated = new BehaviorSubject<boolean>(false);
+
+  isAuthenticated = this.authenticated.asObservable();
   errors = signal<string[]>([]);
 
   constructor(private http: HttpClient) {}
 
   GetSession(): Promise<boolean> {
+
     return new Promise((resolve) => {
+
+      if (!!this.authenticated)
+        return resolve(true);
+
       const token = sessionStorage.getItem("token");
   
       if (token) {
@@ -29,8 +37,8 @@ export class AuthService {
         // Primeira tentativa de validação com o token
         this.http.get<LoginResponse>(`${this.apiUrl}validate`, { headers: header }).subscribe({
           next: (response) => {
-            this.isAuthenticated.set(response.isAuthenticated);
-            resolve(this.isAuthenticated());
+            this.authenticated.next(response.isAuthenticated);
+            resolve(!!this.isAuthenticated);
           },
           error: (error) => {
             this.tryRefreshToken().then(resolve).catch(() => resolve(false));
@@ -40,6 +48,11 @@ export class AuthService {
         this.tryRefreshToken().then(resolve).catch(() => resolve(false));
       }
     });
+  }
+
+  logout() {
+    this.authenticated.next(false);
+    this.ClearSession();
   }
   
   private tryRefreshToken(): Promise<boolean> {
@@ -55,15 +68,15 @@ export class AuthService {
   
         this.http.post<LoginResponse>(`${this.apiUrl}refresh-login`, {}, { headers }).subscribe({
           next: (response) => {
-            this.isAuthenticated.set(response.isAuthenticated);
+            this.authenticated.next(response.isAuthenticated);
             if (response.isAuthenticated) {
               // Atualiza os tokens e valores da sessão
               this.SetSessionValues(response);
             }
-            resolve(this.isAuthenticated());
+            resolve(!!this.isAuthenticated);
           },
           error: (error) => {
-            this.isAuthenticated.set(false);
+            this.authenticated.next(false);
             this.ClearSession();
             reject(false);
           }
@@ -100,30 +113,24 @@ export class AuthService {
     console.log("Setando valores da sessão com resposta:", response);
 
     if (response.isAuthenticated) {
-      this.isAuthenticated.set(true);
-      console.log("Usuário autenticado, salvando informações da sessão");
+      this.authenticated.next(true);
 
       if (response.address) {
-        console.log("Endereço salvo:", response.address);
         localStorage.setItem('address', response.address);
       }
       if (response.refreshToken) {
-        console.log("Refresh token salvo");
         localStorage.setItem("refreshToken", response.refreshToken);
       }
       if (response.token) {
-        console.log("Token salvo");
         sessionStorage.setItem("token", response.token);
       }
       if (response.expiresIn) {
-        console.log("ExpiresIn salvo:", response.expiresIn);
         localStorage.setItem("expiresIn", response.expiresIn.toString());
       }
 
       this.errors.set([]);
     } else {
-      console.log("Autenticação falhou, limpando sessão");
-      this.isAuthenticated.set(false);
+      this.authenticated.next(false);
       this.ClearSession();
       this.errors.set(response.Erros || ["Erro de autenticação."]);
     }
@@ -131,7 +138,6 @@ export class AuthService {
 
   // Método para limpar a sessão
   private ClearSession() {
-    console.log("Limpando sessão");
     sessionStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("expiresIn");
@@ -139,20 +145,13 @@ export class AuthService {
   }
 
   // Método para registrar um novo usuário
-  Register(username: string, password: string, confirmPassword: string): Observable<any> {
+  Register(username: string, password: string, confirmPassword: string): Observable<ActionResultResponse> {
     const body: RegisterRequest = {
       email: username,
       password: password,
       confirmPassword: confirmPassword,
     };
-    console.log("Iniciando registro com body:", body);
 
-    return this.http.post(`${this.apiUrl}Register`, body).pipe(
-      catchError((error) => {
-        console.log("Erro ao registrar:", error);
-        this.errors.set(["Erro ao registrar."]);
-        return of(null);
-      }),
-    );
+    return this.http.post<ActionResultResponse>(`${this.apiUrl}Register`, body);
   }
 }
